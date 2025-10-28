@@ -38,6 +38,8 @@ const Circles = () => {
                     ease: "easeInOut",
                     repeat: Infinity,
                     repeatDelay: 2,
+                    repeatType: "reverse",
+
                 }}
                 style={{ transformOrigin: 'center' }}
             >
@@ -60,19 +62,34 @@ const Circles = () => {
                                 marginLeft: '-64px',
                             }}
                         >
-                            <div className="text-primary mb-2 ">
-                                {track.icon}
-                            </div>
-                            <p className="text-sm font-semibold text-secondary">
-                                {track.name}
-                            </p>
+                            <motion.div
+                                className="flex flex-col items-center"
+                                initial={{ rotate: 0 }}
+                                animate={{ rotate: 360 }}
+                                whileInView={{ scale: 1.1 }}
+                                transition={{
+                                    duration: 1,
+                                    repeat: Infinity,
+                                    repeatDelay: 2,
+                                    repeatType: "reverse",
+
+                                }}
+                                style={{ transformOrigin: 'center' }}
+                            >
+                                <div className="text-primary mb-2 ">
+                                    {track.icon}
+                                </div>
+                                <p className="text-sm font-semibold text-secondary">
+                                    {track.name}
+                                </p>
+                            </motion.div>
                         </div>
                     );
                 })}
 
 
 
-                <div className="relative z-10 flex flex-col items-center">
+                <div className="relative  z-10 flex flex-col items-center">
                     <img
                         src="src/assets/logo2.png"
                         alt="TechTrack Logo"
