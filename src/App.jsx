@@ -1,14 +1,25 @@
-import { useState } from 'react'
-import './App.css'
 
+import './App.css'
+import Home from './componants/home/Home'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Nav from './componants/common/Navbar'
+import Footer from './componants/common/Footer'
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-      <div className='text-primary bg-secondary font-bold text-2xl'>
-        asdasdasdasd
-      </div>
+
+
+      <Router>
+        <Nav />
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+        <Footer />
+      </Router>
+
     </>
   )
 }
