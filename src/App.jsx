@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import './App.css'
+import './index.css' 
+import Footer from './componants/common/Footer'
+import Nav from './componants/common/Navbar'
+function App()  {
+
 
   return (
     <>
-      <div className='text-primary bg-secondary font-bold text-2xl'>
-        asdasdasdasd
-      </div>
+    <Nav/>
+    <Footer/>
     </>
   )
 }
