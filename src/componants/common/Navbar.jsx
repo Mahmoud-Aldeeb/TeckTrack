@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 export default function Nav() {
+
     const [active, setActive] = useState("Home"); // default active link
 
     const links = ["Home", "Roadmaps", "Companies", "Reviews"];
@@ -66,3 +67,4 @@ export default function Nav() {
         </nav>
     );
 }
+
