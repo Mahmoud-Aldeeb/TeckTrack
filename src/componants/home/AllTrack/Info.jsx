@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const Info = () => {
     return (
-        <div className='w-full lg:w-1/2 flex flex-col items-center justify-center px-4 md:px-8 lg:px-12'>
+        <div className='w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center px-4 md:px-8 lg:px-12'>
             <p className='bg-primary-light w-64 text-text-primary font-medium rounded-4xl h-10 flex items-center justify-center text-[16px]'>Your Tech Journey Starts Here</p>
             <div className='my-6 flex gap-5 flex-col'>
                 <h1 className='text-neutral-800 text-4xl font-bold leading-normal'>Explore Your Personalized Tech  Career Roadmaps</h1>
