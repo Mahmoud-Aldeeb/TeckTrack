@@ -7,7 +7,7 @@ const Home = () => {
         <div>
 
             <Tracks />
-         <Reviews/>
+            <Reviews />
         </div>
     )
 }
