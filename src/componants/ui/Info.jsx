@@ -9,13 +9,13 @@ const Info = ({
   btntrue = true,
   textstart = true,
   mb = "4",
+  Width = "half",
 }) => {
-  // ✅ التحقق من إذا كان النص عربي
   const isArabic = /[\u0600-\u06FF]/.test(head || title || paragraph);
 
   return (
     <div
-      className={`w-[calc(100%-30px)] sm:w-1/2 ps-0 my-10 sm:mb-0 sm:ps-10 ${
+      className={`${Width === "half" ? "sm:w-1/2" : "sm:w-full"} w-[calc(100%-30px)] sm:w-1/2 px-0 my-20 sm:mb-0 sm:px-8 sm:my-10 ${
         isArabic ? "text-right" : textstart ? "text-start" : "text-center"
       }`}
       dir={isArabic ? "rtl" : "ltr"} 

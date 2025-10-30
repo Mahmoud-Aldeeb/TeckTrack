@@ -12,7 +12,7 @@ export default function Nav() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsLargeScreen(window.innerWidth > 1025);
+      setIsLargeScreen(window.innerWidth > 767);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
