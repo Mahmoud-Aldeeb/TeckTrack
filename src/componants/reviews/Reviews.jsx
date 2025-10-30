@@ -12,10 +12,12 @@ function Reviews() {
     const fetchReviews = async () => {
       try {
         // real api
-        // const res = await axios.get("https://your-api-link.com/reviews");
-        // setReviews(res.data);
+        const res = await axios.get("https://your-api-link.com/reviews");
+        setReviews(res.data); // make sure that api get array of objects
+      } catch (err) {
+        console.error("Error fetching reviews:", err);
 
-        // Fake Data 
+        // fake data instead of api
         const fakeData = [
           {
             id: 1,
@@ -66,11 +68,7 @@ function Reviews() {
             rating: 5,
           },
         ];
-
-        // 🟩 use fake data
         setReviews(fakeData);
-      } catch (err) {
-        console.error("Error fetching reviews:", err);
       } finally {
         setLoading(false);
       }
@@ -79,43 +77,42 @@ function Reviews() {
     fetchReviews();
   }, []);
 
-  // animation
+  // 🌀 Animation
   useEffect(() => {
     if (reviews.length) {
       controls.start({
         x: ["0%", "-50%"],
-        transition: {
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
-        },
+        transition: { duration: 20, repeat: Infinity, ease: "linear" },
       });
     }
   }, [reviews, controls]);
 
   if (loading) {
-    return <div className="py-20 text-center text-gray-500">Loading reviews...</div>;
+    return (
+      <div className="py-20 text-center text-gray-500">Loading reviews...</div>
+    );
   }
 
   return (
     <section className="py-16 bg-gray-50 text-center overflow-hidden">
       {/* Header */}
-      <div className="mb-10">
+      <div className="mb-10 px-4">
         <button className="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-semibold">
           What Our Learners Say
         </button>
-        <h2 className="text-3xl font-bold mt-4">
+        <h2 className="text-2xl sm:text-3xl font-bold mt-4">
           Hear from People Who Grew with TechTrack
         </h2>
-        <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-          Real experiences from learners who explored tech tracks and built careers in Egypt’s tech scene.
+        <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-sm sm:text-base">
+          Real experiences from learners who explored tech tracks and built
+          careers in Egypt’s tech scene.
         </p>
       </div>
 
-      {/* Slider Animation */}
-      <div className="overflow-hidden relative px-16">
+      {/* Slider */}
+      <div className="overflow-hidden relative px-4 sm:px-8 md:px-16">
         <motion.div
-          className="flex gap-8"
+          className="flex gap-6 sm:gap-8"
           animate={controls}
           onMouseEnter={() => controls.stop()}
           onMouseLeave={() =>
@@ -125,9 +122,10 @@ function Reviews() {
             })
           }
         >
-          {/* Double list for infinite loop effect */}
           {[...reviews, ...reviews].map((review, i) => (
-            <ReviewCard key={i} {...review} />
+            <div key={i} className="flex-shrink-0">
+              <ReviewCard {...review} />
+            </div>
           ))}
         </motion.div>
       </div>

@@ -41,7 +41,7 @@ const TrackCard = ({ title, desc, img }) => {
 
                 {/* الزر */}
                 <PrimaryButton
-                    to={`/track/${slug}`}
+                     to={`/trackdetails/${slug}`} 
                     className="self-end"
                 >
                     View Details
