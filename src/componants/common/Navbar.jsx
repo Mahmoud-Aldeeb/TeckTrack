@@ -4,7 +4,7 @@ export default function Nav() {
 
     const [active, setActive] = useState("Home"); // default active link
 
-    const links = ["Home", "Roadmaps", "Companies", "Reviews"];
+    const links = ["Home", "Roadmap", "Companies", "Reviews"];
 
     return (
         <nav className="bg-[var(--color-white)] shadow-sm">
@@ -44,10 +44,10 @@ export default function Nav() {
                 {/* Links */}
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white text-[--color-text]">
-                        {links.map((link) => (
-                            <li key={link}>
+                        {links.map((link, index) => (
+                            <li key={index}>
                                 <a
-                                    href="#"
+                                    href={`${link === "Home" ? "/" : `${link}`}`}
                                     onClick={() => setActive(link)}
                                     className={`block py-2 px-3 hover:text-[var(--color-primary)] hover:underline ${active === link ? "text-[var(--color-primary)] underline" : ""
                                         }`}
