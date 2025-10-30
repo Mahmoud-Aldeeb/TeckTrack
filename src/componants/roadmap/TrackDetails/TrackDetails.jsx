@@ -89,8 +89,8 @@ const TrackDetails = () => {
               </div>
 
               <div className="mt-6 flex justify-center">
-               <PrimaryButton>
-                Explore
+                <PrimaryButton to="/">
+                  Explore
                 </PrimaryButton>
               </div>
             </div>

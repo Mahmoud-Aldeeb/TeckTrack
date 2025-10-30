@@ -1,16 +1,16 @@
-import heroImg from "../../assets/home-asstes/bg.png";
-import heroVector from "../../assets/home-asstes/Vector.png";
-import arrowVector from "../../assets/home-asstes/arrow-up-right.png";
+import heroImg from "../../assets/bg.png";
+import heroVector from "../../assets/Vector.png";
+import arrowVector from "../../assets/arrow-up-right.png";
 
 function HeroSection() {
   return (
     <>
       <section
-       className="relative w-full h-screen overflow-hidden bg-black flex flex-col items-center justify-center"
-      aria-label="Hero section - TechTrack"
-    >
-      {/* 1) Scrolling background */}
-      <style>{`
+        className="relative w-full h-screen overflow-hidden bg-black flex flex-col items-center justify-center"
+        aria-label="Hero section - TechTrack"
+      >
+        {/* 1) Scrolling background */}
+        <style>{`
         @keyframes scroll {
           0% { transform: translate3d(0, 0, 0); }
           100% { transform: translate3d(-50%, 0, 0); }
@@ -43,22 +43,22 @@ function HeroSection() {
         }
       `}</style>
 
-      {/* Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="hero-bg">
-          <img
-            src={heroImg}
-            alt="tech icons background"
-            draggable="false"
-          />
-          <img
-            src={heroImg}
-            alt=""
-            aria-hidden="true"
-            draggable="false"
-          />
+        {/* Background */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="hero-bg">
+            <img
+              src={heroImg}
+              alt="tech icons background"
+              draggable="false"
+            />
+            <img
+              src={heroImg}
+              alt=""
+              aria-hidden="true"
+              draggable="false"
+            />
+          </div>
         </div>
-      </div>
 
         {/* Content — slightly higher now */}
         <div className="relative z-20 max-w-3xl px-6 text-center text-[#333333] mt-2">

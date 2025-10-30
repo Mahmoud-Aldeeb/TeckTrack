@@ -7,7 +7,7 @@ export default function Footer() {
                 {/* Left Section */}
                 <div className="w-full md:w-1/3 lg:w-1/4 mb-8 md:mb-0">
                     <a href="#" className="flex items-center gap-2 mb-6">
-                        <img src="src/assets/logo2.png" alt="Logo" className="w-10 h-12" />
+                        <img src="/src/assets/logo2.png" alt="Logo" className="w-10 h-12" />
                         <span className="text-[var(--color-secondary)] text-2xl font-bold">
                             TechTrack
                         </span>

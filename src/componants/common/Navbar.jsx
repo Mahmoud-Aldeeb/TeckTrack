@@ -4,17 +4,17 @@ export default function Nav() {
 
     const [active, setActive] = useState("Home"); // default active link
 
-    const links = [{name:"Home",path:"/"},
-        {name:"Roadmap",path:"/roadmap"} ,
-        {name:"Companies",path:"/companies" },
-        {name:"Reviews",path:"/reviews"}];
+    const links = [{ name: "Home", path: "/" },
+    { name: "Roadmap", path: "/roadmap" },
+    { name: "Companies", path: "/companies" },
+    { name: "Reviews", path: "/reviews" }];
 
     return (
         <nav className="bg-[var(--color-white)] shadow-sm">
             <div className="container mx-auto flex flex-wrap items-center justify-between py-3 px-6">
                 {/* Brand */}
                 <a href="#" className="flex items-center gap-2">
-                    <img src="src/assets/logo1.png" alt="Logo" className="w-11 h-12" />
+                    <img src="/src/assets/logo1.png" alt="Logo" className="w-11 h-12" />
                     <span className="text-[var(--color-secondary)] text-2xl font-bold">
                         TechTrack
                     </span>
@@ -50,10 +50,10 @@ export default function Nav() {
                         {links.map((link, index) => (
                             <li key={index}>
                                 <Link
-                                   to={link.path}
+                                    to={link.path}
                                     onClick={() => setActive(link.name)}
                                     className={`block py-2 px-3 hover:text-[var(--color-primary)] hover:underline
-                                         ${ location.pathname === link.path? "text-[var(--color-primary)] underline" : ""
+                                         ${location.pathname === link.path ? "text-[var(--color-primary)] underline" : ""
                                         }`}
                                 >
                                     {link.name}

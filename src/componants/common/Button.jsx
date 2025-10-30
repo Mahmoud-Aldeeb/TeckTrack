@@ -14,7 +14,7 @@ const PrimaryButton = ({ to, children, className = '', ...props }) => {
         >
             <span>{children}</span>
             <img
-                src="src/assets/arrow-up-right.png"
+                src="/src/assets/arrow-up-right.png"
                 alt="arrow icon"
                 className="w-5 h-5"
             />

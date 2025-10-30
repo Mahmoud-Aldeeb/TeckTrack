@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 import PrimaryButton from '../common/Button';
 
 const TrackCard = ({ title, desc, img }) => {
-    const slug = title.toLowerCase().replace(/ & /g, '').replace(/ /g, '');
-
+    // const slug = title.toLowerCase().replace(/ & /g, '').replace(/ /g, '');
+    const slug = title
+        .toLowerCase()
+        .replace(/ & /g, '-')   // " & " → "-"
+        .replace(/ /g, '-');
     return (
         <div className={`
             relative overflow-hidden rounded-2xl 
@@ -41,7 +44,7 @@ const TrackCard = ({ title, desc, img }) => {
 
                 {/* الزر */}
                 <PrimaryButton
-                     to={`/trackdetails/${slug}`} 
+                    to={`/trackdetails/${slug}`}
                     className="self-end"
                 >
                     View Details
