@@ -1,29 +1,29 @@
 // src/pages/RoadmapPage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TrackCard from './TrackCard'; // استدعاء الكومبوننت
+import TrackCard from './TrackCard';
 
 const RoadmapPage = () => {
     const tracks = [
         {
             title: "Software Development",
             desc: "This track teaches the foundation of building scalable, maintainable software. You'll explore programming fundamentals, version control, design patterns, testing, debugging, and software architecture. By the end, you'll be able to write clean, efficient code that solves real problems.",
-            img: "/src/assets/Software.png",
+            img: "/src/assets/Software.webp",
         },
         {
             title: "Data & AI",
             desc: "This track guides you through the world of data collection, processing, visualization, and machine learning fundamentals. You'll explore data pipelines, Python libraries, predictive models, AI tools, and responsible AI ethics. Ideal for analytical thinkers looking to build intelligent solutions.",
-            img: "/src/assets/AI.png",
+            img: "/src/assets/AI.webp",
         },
         {
             title: "Design & UX",
             desc: "This track covers UI design, user research, wireframing, prototyping, usability testing, accessibility, and interaction patterns. Learn how to design solutions that reduce friction and improve user satisfaction across web and mobile.",
-            img: "/src/assets/Design.png",
+            img: "/src/assets/Design.webp",
         },
         {
             title: "DevOps & Cloud",
             desc: "This track prepares you to manage the full lifecycle of software delivery. Learn continuous integration, automation, containerization, cloud deployment, monitoring, and incident response. Perfect for developers who want to improve performance, security, and reliability.",
-            img: "/src/assets/Devops.png",
+            img: "/src/assets/Devops.webp",
         }
     ];
 
