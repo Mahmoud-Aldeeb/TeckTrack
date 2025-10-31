@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Btn } from "../ui/Btn";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 export default function Nav() {
   const [active, setActive] = useState("");
@@ -9,6 +10,7 @@ export default function Nav() {
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 767);
   const { i18n } = useTranslation();
   const { t } = useTranslation();
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -18,15 +20,17 @@ export default function Nav() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   useEffect(() => {
-    setActive(t("nav.links.home"));
-  }, [i18n.language]);
+    setActive(location.pathname);
+    console.log(location.pathname);
+  }, [location]);
+
   const links = [
-    { key: "home", label: t("nav.links.home") },
-    { key: "roadmaps", label: t("nav.links.roadmaps") },
-    { key: "companies", label: t("nav.links.companies") },
-    { key: "reviews", label: t("nav.links.reviews") },
+    { name: t("nav.links.home"), path: "/" },
+    { name: t("nav.links.roadmaps"), path: "/roadmap" },
+    { name: t("nav.links.companies"), path: "/companies" },
+    // { name: "Reviews", path: "/reviews" },
   ];
-  
+
   // إعدادات الحركة
   const menuVariants = {
     hidden: { x: "100%", opacity: 0 },
@@ -45,12 +49,12 @@ export default function Nav() {
   };
 
   return (
-    <nav className="bg-[var(--color-white)] shadow-sm fixed w-full top-0 left-0 z-50">
+    <nav className="bg-[var(--color-white)] shadow-sm fixed w-full top-0 left-0 z-50 ">
       <div className="container mx-auto flex flex-wrap items-center justify-between py-3 px-6">
         {/* Brand */}
         <a href="#" className="flex items-center gap-2">
           <img
-            src="src/assets/image/logo1.png"
+            src="/src/assets/image/logo1.png"
             alt="Logo"
             className="w-11 h-12"
           />
@@ -109,18 +113,18 @@ export default function Nav() {
               {links.map((link, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href={link.path}
                   onClick={() => {
                     setActive(link);
                     setIsOpen(false);
                   }}
                   className={`relative pb-2 hover:text-[var(--color-primary)] ${
-                    active === link.label
+                    active === link.path
                       ? "text-[var(--color-primary)] font-semibold active-link"
                       : ""
                   }`}
                 >
-                  {link.label}
+                  {link.name}
                 </a>
               ))}
 
@@ -144,15 +148,15 @@ export default function Nav() {
           {links.map((link, index) => (
             <a
               key={index}
-              href="#"
+              href={link.path}
               onClick={() => setActive(link)}
               className={`relative pb-2 hover:text-[var(--color-primary)] ${
-                active === link.label
+                active === link.path
                   ? "text-[var(--color-primary)] font-semibold active-link"
                   : ""
               }`}
             >
-              {link.label}
+              {link.name}
             </a>
           ))}
         </div>

@@ -64,3 +64,67 @@ TechTrack/
 🗺️ Add interactive roadmap visualization
 🧑‍💻 User authentication system
 🧾 Dynamic content from database or API
+
+```
+TechTrack
+├─ .eslintrc.json
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ public
+│  ├─ locales
+│  │  ├─ ar
+│  │  │  └─ translation.json
+│  │  └─ en
+│  │     └─ translation.json
+│  └─ vite.svg
+├─ README.md
+├─ src
+│  ├─ App.jsx
+│  ├─ assets
+│  │  ├─ icons
+│  │  └─ image
+│  │     ├─ arrow-up-right.png
+│  │     ├─ devicon_redis.svg
+│  │     ├─ LOGO-Yellow 1.jpg
+│  │     ├─ LOGO-Yellow 2.png
+│  │     ├─ LOGO-Yellow 3.png
+│  │     ├─ logo1.png
+│  │     └─ logo2.png
+│  ├─ componants
+│  │  ├─ common
+│  │  ├─ layout
+│  │  │  ├─ Footer.jsx
+│  │  │  └─ Nav.jsx
+│  │  └─ ui
+│  │     ├─ Btn.jsx
+│  │     └─ Info.jsx
+│  ├─ features
+│  │  ├─ profile
+│  │  └─ roadmap
+│  ├─ main.jsx
+│  ├─ pages
+│  │  ├─ About
+│  │  ├─ home
+│  │  │  ├─ AllTrack
+│  │  │  │  ├─ Circles.jsx
+│  │  │  │  └─ Tracks.jsx
+│  │  │  ├─ Home.jsx
+│  │  │  ├─ Opportunity
+│  │  │  │  ├─ AnimationCard.jsx
+│  │  │  │  └─ Opportunity.jsx
+│  │  │  └─ Review
+│  │  │     ├─ ReviewCard.jsx
+│  │  │     └─ Reviews.jsx
+│  │  └─ NotFound
+│  ├─ routes
+│  │  └─ AppRoutes.jsx
+│  ├─ styles
+│  │  └─ index.css
+│  └─ utils
+│     ├─ helpers.js
+│     └─ i18n.js
+└─ vite.config.js
+
+```

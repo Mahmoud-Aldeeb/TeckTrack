@@ -49,7 +49,14 @@
         "terms": "Terms of Service"
       }
     },
-    "description": "Your trusted tech career platform.",
+    "description": "Empowering learners in Egypt to explore every tech field through clear roadmaps, essential technologies, and company insights.",
     "rights": "All rights reserved."
+  },
+  "HeroSection" : {
+    "head" : "Start Your Tech Career",
+    "title" : "Discover Your Ultimate Path in Egypt’s Tech World",
+    "paragraph" :"Step into Egypt’s tech world with comprehensive Roadmaps, top companies, standout projects, watch intro videos to understand each field and learn from renowned developers and Master your career path with step by step.",
+    "Primary_Button" : "Start Your Journey",
+    "Explore_Companies" : "Explore Companies"
   }
 }

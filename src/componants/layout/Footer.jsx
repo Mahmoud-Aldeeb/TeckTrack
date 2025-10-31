@@ -1,7 +1,7 @@
 import React from "react";
 import { Linkedin, Github, Twitter } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
+import {Link} from "react-router-dom";
 export default function Footer() {
   const { t } = useTranslation();
 
@@ -10,10 +10,9 @@ export default function Footer() {
     {
       title: t("footer.explore.title"),
       links: [
-        { label: t("footer.explore.links.home"), url: "#" },
-        { label: t("footer.explore.links.roadmaps"), url: "#" },
-        { label: t("footer.explore.links.companies"), url: "#" },
-        { label: t("footer.explore.links.reviews"), url: "#" },
+        { label: t("footer.explore.links.home"), url: "/" },
+        { label: t("footer.explore.links.roadmaps"), url: "/roadmap" },
+        { label: t("footer.explore.links.companies"), url: "/companies" },
       ],
     },
     {
@@ -35,7 +34,6 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--color-primary-light)] pt-12 w-full text-[--text-color]">
       <div className="container mx-auto flex flex-wrap justify-between gap-8 md:gap-12 lg:gap-16 px-8 max-w-7xl">
-        
         {/* 👣 Left Section */}
         <div className="w-full md:w-1/3 lg:w-1/4 mb-8 md:mb-0">
           <a href="#" className="flex items-center gap-2 mb-6">
@@ -77,12 +75,13 @@ export default function Footer() {
             </li>
             {col.links.map((link, idx) => (
               <li key={`link-${i}-${idx}`} className="mb-4">
-                <a
-                  href={link.url}
+                <Link
+
+                  to={link.url} // ✅ استخدم to بدل href
                   className="text-sm hover:text-[var(--color-primary)] text-[var(--color-text)] transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

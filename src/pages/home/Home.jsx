@@ -3,6 +3,7 @@ import Tracks from "./AllTrack/Tracks";
 import Opportunity from "./Opportunity/Opportunity";
 import Reviews from "./Review/Reviews";
 import { Helmet } from "react-helmet";
+import HeroSection from "./HeroSection/HeroSection";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
         />
       </Helmet>
       <div>
+        <HeroSection/>
         <Tracks />
         <Opportunity />
         <Reviews />
