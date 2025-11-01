@@ -2,33 +2,62 @@
 import React from 'react';
 import TrackCard from '../Roadmap/TrackCard';
 import { Helmet } from "react-helmet";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Loader from '../../componants/ui/Loader';
+import ErrorMessage from '../../componants/ui/Error';
+
+
 
 const RoadmapPage = () => {
-    const tracks = [
-        {
-            title: "Software Development",
-            desc: "This track teaches the foundation of building scalable, maintainable software. You'll explore programming fundamentals, version control, design patterns, testing, debugging, and software architecture. By the end, you'll be able to write clean, efficient code that solves real problems.",
-            img: "/src/assets/image/Software.webp",
-        },
-        {
-            title: "Data & AI",
-            desc: "This track guides you through the world of data collection, processing, visualization, and machine learning fundamentals. You'll explore data pipelines, Python libraries, predictive models, AI tools, and responsible AI ethics. Ideal for analytical thinkers looking to build intelligent solutions.",
-            img: "/src/assets/image/AI.webp",
-        },
-        {
-            title: "Design & UX",
-            desc: "This track covers UI design, user research, wireframing, prototyping, usability testing, accessibility, and interaction patterns. Learn how to design solutions that reduce friction and improve user satisfaction across web and mobile.",
-            img: "/src/assets/image/Design.webp",
-        },
-        {
-            title: "DevOps & Cloud",
-            desc: "This track prepares you to manage the full lifecycle of software delivery. Learn continuous integration, automation, containerization, cloud deployment, monitoring, and incident response. Perfect for developers who want to improve performance, security, and reliability.",
-            img: "/src/assets/image/Devops.webp",
-        }
-    ];
+    const [tracks, setTracks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+
+    const imagesMap = {
+        "Software Development": "/src/assets/image/Software.webp",
+        "DevOps & Infrastructure": "/src/assets/image/Devops.webp",
+        "Data & AI": "/src/assets/image/AI.webp",
+        "Design & User Experience": "/src/assets/image/Design.webp",
+    };
+    useEffect(() => {
+        const fetchTracks = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get('http://techtrack.runasp.net/api/Category');
+                const formattedTracks = response.data.map(item => ({
+                    id: item.categoryId,
+                    title: item.categoryName,
+                    desc: item.description,
+                    img: imagesMap[item.categoryName] || "/src/assets/image/software.webp"
+                }));
+                setTracks(formattedTracks);
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching tracks:", err);
+                setError("Failed to load tracks. Please try again later.");
+                setLoading(false);
+            }
+        };
+
+        fetchTracks();
+    }, []);
+
+    if (error) {
+        return <ErrorMessage message={error} />;
+    }
+
+
+    if (loading) {
+        return <Loader />;
+    }
+
+
 
     return (
         <>
+
             <Helmet>
                 <title>Tracks - TechTrack</title>
                 <meta
@@ -36,7 +65,6 @@ const RoadmapPage = () => {
                     content="Discover the roadmap to learning every specialization in programming and technology."
                 />
             </Helmet>
-
             <div className="min-h-screen bg-white pt-16 sm:pt-20 flex flex-col items-center">
 
 
@@ -66,7 +94,7 @@ const RoadmapPage = () => {
                     ">
                         {tracks.map((track, index) => (
                             <div
-                                key={index}
+                                key={index || track.categoryId}
                                 className="
                                     w-full
                                     max-w-xs
