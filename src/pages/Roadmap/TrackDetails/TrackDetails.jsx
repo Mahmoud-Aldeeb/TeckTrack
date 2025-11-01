@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../../../componants/ui/Loader';
-// import PrimaryButton from '../../common/Button';
 import { Btn } from '../../../componants/ui/Btn';
+
 
 
 const TrackDetails = () => {
   const { slug } = useParams();
   const [track, setTrack] = useState(null);
   const [loading, setLoading] = useState(true);
+  console.log("useParams:", useParams());
 
-  // Fake data (replace with API when ready)
   const fakeTracks = {
     'software-development': {
       title: 'Software Development',
@@ -91,10 +91,10 @@ const TrackDetails = () => {
               </div>
 
               <div className="mt-6 flex justify-center">
-                {/* <PrimaryButton to="/">
-                  Explore
-                </PrimaryButton> */}
-                <Btn content="Explore"/>
+                <Btn
+                  content="Explore"
+                  url={`trackdetails/${slug}/web-development`}
+                />
               </div>
             </div>
           </div>
