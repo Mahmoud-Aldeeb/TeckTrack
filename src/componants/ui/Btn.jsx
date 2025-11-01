@@ -11,7 +11,7 @@ export const Btn = ({ url = "", content, arrow = true, Px="6" }) => {
         <img
           src="/src/assets/image/arrow-up-right.png"
           alt="arrow icon"
-          className="w-5 h-5 bg-amber-500"
+          className="w-5 h-5 "
         />
       ) : (
         ""
