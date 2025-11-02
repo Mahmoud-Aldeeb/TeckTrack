@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import QuestionsList from "../TrackDetails/QuestionsList/QuestionsList";
 
 export default function SubSubTrackDetails() {
   const { slug, subSlug, subSubSlug } = useParams();
@@ -119,6 +120,14 @@ export default function SubSubTrackDetails() {
           </div>
         </div>
       )}
+
+
+      <QuestionsList
+        apiUrl="http://techtrack.runasp.net/api/InterviewQuestion"
+        limit={10}
+        showSearch={true}
+        showFilters={true}
+      />
     </div>
   );
 }

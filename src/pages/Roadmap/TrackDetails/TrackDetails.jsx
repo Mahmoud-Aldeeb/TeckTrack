@@ -1,109 +1,151 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Loader from '../../../componants/ui/Loader';
-import { Btn } from '../../../componants/ui/Btn';
-import ErrorMessage from '../../../componants/ui/Error';
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import Loader from "../../../componants/ui/Loader";
+import ErrorMessage from "../../../componants/ui/Error";
 
-
-
-const TrackDetails = () => {
+export default function FrontendPage() {
   const { slug } = useParams();
-  const [track, setTrack] = useState(null);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [subCategories, setSubCategories] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log("useParams:", useParams());
-
-  const fakeTracks = {
-    'software-development': {
-      title: 'Software Development',
-      description: 'Explore web, mobile, and game development fundamentals.',
-      subTracks: [
-        { name: 'Web Development', description: 'Frontend, backend, and full-stack web technologies.', img: 'https://cdn-icons-png.flaticon.com/512/919/919827.png' },
-        { name: 'Mobile Development', description: 'Learn Android, iOS, and cross-platform frameworks.', img: 'https://cdn-icons-png.flaticon.com/512/888/888857.png' },
-        { name: 'Game Development', description: 'Design and develop games using Unity and Unreal Engine.', img: 'https://cdn-icons-png.flaticon.com/512/906/906343.png' },
-      ]
-    },
-    'data-ai': {
-      title: 'Data & AI',
-      description: 'Dive into machine learning, AI tools, and data analysis.',
-      subTracks: [
-        { name: 'Data Analysis', description: 'Work with data visualization and analytics tools.', img: 'https://cdn-icons-png.flaticon.com/512/2920/2920277.png' },
-        { name: 'Machine Learning', description: 'Build intelligent systems using ML models.', img: 'https://cdn-icons-png.flaticon.com/512/2103/2103626.png' },
-        { name: 'Deep Learning', description: 'Explore neural networks and AI frameworks.', img: 'https://cdn-icons-png.flaticon.com/512/3616/3616199.png' },
-      ]
-    },
-    'design-user-experience': {
-      title: 'Design & User Experience',
-      description: 'Master UI/UX design and create beautiful, user-friendly interfaces.',
-      subTracks: [
-        { name: 'UI Design', description: 'Learn design principles, colors, and layout.', img: 'https://cdn-icons-png.flaticon.com/512/1828/1828884.png' },
-        { name: 'UX Research', description: 'Understand user needs through research and testing.', img: 'https://cdn-icons-png.flaticon.com/512/2985/2985166.png' },
-        { name: 'Prototyping', description: 'Build prototypes using Figma and Adobe XD.', img: 'https://cdn-icons-png.flaticon.com/512/5968/5968705.png' },
-      ]
-    },
-    'devops-infrastructure': {
-      title: 'DevOps & Infrastructure',
-      description: 'Learn CI/CD, Docker, and cloud deployment.',
-      subTracks: [
-        { name: 'DevOps Tools', description: 'Master Jenkins, Docker, and Kubernetes.', img: 'https://cdn-icons-png.flaticon.com/512/5969/5969059.png' },
-        { name: 'Cloud Platforms', description: 'AWS, Azure, and Google Cloud fundamentals.', img: 'https://cdn-icons-png.flaticon.com/512/919/919851.png' },
-        { name: 'Automation', description: 'Automate workflows with Ansible and Terraform.', img: 'https://cdn-icons-png.flaticon.com/512/906/906334.png' },
-      ]
-    }
-  };
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-    // Uncomment this part when API is ready
-    /*
-    fetch(`https://api.example.com/tracks/${slug}`)
-      .then(res => res.json())
-      .then(data => {
-        setTrack(data);
+        // جلب كل الـ Categories أولاً لتحديد الـ categoryId الحالي
+        const categoriesResponse = await axios.get('http://techtrack.runasp.net/api/Category');
+        const categories = categoriesResponse.data.filter(item =>
+          item.categoryName !== "string"
+        );
+
+        // إيجاد الـ Category الحالي بناءً على الـ slug
+        const foundCategory = categories.find(cat =>
+          createSlug(cat.categoryName) === slug
+        );
+
+        if (!foundCategory) {
+          setError("Category not found");
+          setLoading(false);
+          return;
+        }
+
+        setCurrentCategory(foundCategory);
+
+        // جلب الـ SubCategories وفلترتها حسب الـ categoryId
+        const subCategoriesResponse = await axios.get('http://techtrack.runasp.net/api/SubCategories');
+        const filteredSubCategories = subCategoriesResponse.data.filter(item =>
+          item.categoryId === foundCategory.categoryId &&
+          item.subCategoryName !== "string" &&
+          item.description !== "string"
+        );
+
+        setSubCategories(filteredSubCategories);
         setLoading(false);
-      })
-      .catch(err => console.error(err));
-    */
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to load data. Please try again later.");
+        setLoading(false);
+      }
+    };
 
-
-    const data = fakeTracks[slug];
-    setTrack(data);
-    setLoading(false);
+    fetchData();
   }, [slug]);
 
-  if (loading) return <Loader />;
-  if (!track) return <ErrorMessage message="Track not found." />;
+  // دالة لإنشاء slug من الاسم
+  const createSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/ & /g, '-')
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <ErrorMessage message={error} />;
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6 mt-20">
-      <h1 className="text-4xl font-bold text-center mb-4 text-blue-700">{track.title}</h1>
-      <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">{track.description}</p>
+    <div className="min-h-screen bg-gray-50 py-16 px-6">
+      <div className="max-w-4xl mx-auto text-center mt-4">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">
+          {currentCategory?.categoryName || "Developer Roadmap"}
+        </h1>
+        <p className="text-gray-900 text-sm text-center mb-8">
+          {currentCategory?.description || "Choose your specialization and start your learning journey"}
+        </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {track.subTracks.map((sub, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col justify-between"
+        <div className="w-32 h-1 bg-gray-900 mx-auto mb-10"></div>
+      </div>
+
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        Specialization Tracks
+      </h1>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
+        {subCategories.map((subCategory) => (
+          <Link
+            key={subCategory.subCategoryId}
+            to={`/trackdetails/${slug}/${createSlug(subCategory.subCategoryName)}`}
+            className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-all duration-300 border hover:-translate-y-1 flex flex-col h-full"
           >
-            <img src={sub.img} alt={sub.name} className="w-full h-52 object-contain bg-gray-100" />
-            <div className="p-6 flex flex-col flex-grow justify-between">
+            <h2 className="text-xl font-bold text-blue-500 mb-3">
+              {subCategory.subCategoryName}
+            </h2>
+
+            <p className="text-gray-600 text-sm mb-4 flex-grow">
+              {subCategory.description}
+            </p>
+
+            <div className="space-y-3">
               <div>
-                <h2 className="text-xl font-semibold mb-2 text-gray-800">{sub.name}</h2>
-                <p className="text-gray-600 text-sm leading-relaxed">{sub.description}</p>
+                <div className="text-blue-500 font-semibold text-sm mb-1">Difficulty:</div>
+                <p className="text-gray-700 text-xs">
+                  {subCategory.difficultyLevel || "Various Levels"}
+                </p>
               </div>
 
-              <div className="mt-6 flex justify-center">
-                <Btn
-                  content="Explore"
-                  url={`trackdetails/${slug}/web-development`}
-                />
-              </div>
+              {subCategory.estimatedDuration > 0 && (
+                <div>
+                  <div className="text-blue-500 font-semibold text-sm mb-1">Duration:</div>
+                  <p className="text-gray-700 text-xs">
+                    {subCategory.estimatedDuration} hours
+                  </p>
+                </div>
+              )}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
+
+      {/* Empty State */}
+      {subCategories.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-gray-400 text-6xl mb-4">📚</div>
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            No Specializations Available
+          </h3>
+          <p className="text-gray-500 max-w-md mx-auto">
+            Currently there are no specialization tracks available for this category.
+          </p>
+          <button
+            onClick={() => navigate(-1)}
+            className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Go Back
+          </button>
+        </div>
+      )}
     </div>
   );
-};
-
-export default TrackDetails;
+}
