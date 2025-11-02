@@ -14,7 +14,6 @@ const RoadmapPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
     const imagesMap = {
         "Software Development": "/src/assets/image/Software.webp",
         "DevOps & Infrastructure": "/src/assets/image/Devops.webp",

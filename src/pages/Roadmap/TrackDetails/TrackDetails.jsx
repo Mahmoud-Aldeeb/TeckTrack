@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../../../componants/ui/Loader';
 import { Btn } from '../../../componants/ui/Btn';
+import ErrorMessage from '../../../componants/ui/Error';
 
 
 
@@ -30,8 +31,8 @@ const TrackDetails = () => {
         { name: 'Deep Learning', description: 'Explore neural networks and AI frameworks.', img: 'https://cdn-icons-png.flaticon.com/512/3616/3616199.png' },
       ]
     },
-    'design-ux': {
-      title: 'Design & UX',
+    'design-user-experience': {
+      title: 'Design & User Experience',
       description: 'Master UI/UX design and create beautiful, user-friendly interfaces.',
       subTracks: [
         { name: 'UI Design', description: 'Learn design principles, colors, and layout.', img: 'https://cdn-icons-png.flaticon.com/512/1828/1828884.png' },
@@ -39,8 +40,8 @@ const TrackDetails = () => {
         { name: 'Prototyping', description: 'Build prototypes using Figma and Adobe XD.', img: 'https://cdn-icons-png.flaticon.com/512/5968/5968705.png' },
       ]
     },
-    'devops-cloud': {
-      title: 'DevOps & Cloud',
+    'devops-infrastructure': {
+      title: 'DevOps & Infrastructure',
       description: 'Learn CI/CD, Docker, and cloud deployment.',
       subTracks: [
         { name: 'DevOps Tools', description: 'Master Jenkins, Docker, and Kubernetes.', img: 'https://cdn-icons-png.flaticon.com/512/5969/5969059.png' },
@@ -64,13 +65,14 @@ const TrackDetails = () => {
       .catch(err => console.error(err));
     */
 
+
     const data = fakeTracks[slug];
     setTrack(data);
     setLoading(false);
   }, [slug]);
 
   if (loading) return <Loader />;
-  if (!track) return <p className="text-center text-red-500 mt-10">Track not found</p>;
+  if (!track) return <ErrorMessage message="Track not found." />;
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-6 mt-20">

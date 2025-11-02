@@ -7,7 +7,7 @@ import SubSubTrackDetails from './pages/Roadmap/TrackDetails/SubSubTrackDetails.
 // import Reviews from './pages/Reviews/Reviews';
 import Nav from './componants/layout/Nav.jsx';
 import Footer from './componants/layout/Footer.jsx';
-
+import Companies from './pages/Companies/Compmain.jsx';
 function App() {
   return (
     <Router>
@@ -18,6 +18,7 @@ function App() {
         <Route path='/trackdetails/:slug' element={<TrackDetails />} />
         <Route path="/trackdetails/:slug/:subSlug" element={<SubTrackDetails />} />
         <Route path="/trackdetails/:slug/:subSlug/:subSubSlug" element={<SubSubTrackDetails />} />
+        <Route path="/companies" element={<Companies />} />
 
         {/* <Route path='/reviews' element={<Reviews />} /> */}
       </Routes>
