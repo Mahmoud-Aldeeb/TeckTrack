@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const Btn = ({ url = "", content, arrow = true, Px="6" }) => {
+export const Btn = ({ url = "", content, arrow = true, Px = "6" }) => {
   return (
     <Link
       to={`/${url}`}
@@ -11,7 +11,7 @@ export const Btn = ({ url = "", content, arrow = true, Px="6" }) => {
         <img
           src="/src/assets/image/arrow-up-right.png"
           alt="arrow icon"
-          className="w-5 h-5"
+          className="w-5 h-5 "
         />
       ) : (
         ""
