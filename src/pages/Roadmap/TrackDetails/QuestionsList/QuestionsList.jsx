@@ -16,7 +16,7 @@ const QuestionsList = ({
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('all');
 
-    // استخراج المستويات المختلفة من الأسئلة
+
     const difficultyLevels = [...new Set(questions.map(q => q.difficultyLevel))];
 
     useEffect(() => {

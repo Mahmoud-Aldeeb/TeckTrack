@@ -25,6 +25,9 @@ export default function FrontendPage() {
           item.categoryName !== "string"
         );
 
+        console.log("All categories without filter:", categories);
+
+
 
         const foundCategory = categories.find(cat =>
           createSlug(cat.categoryName) === slug
@@ -64,7 +67,7 @@ export default function FrontendPage() {
       .toLowerCase()
       .replace(/ & /g, '-')
       .replace(/ /g, '-')
-      .replace(/[^\w-]+/g, '');
+      .replace(/[^\w-]+/g, '-');
   };
 
   if (loading) {

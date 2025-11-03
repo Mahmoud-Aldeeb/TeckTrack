@@ -16,7 +16,7 @@ const RoadmapPage = () => {
 
     const imagesMap = {
         "Software Development": "/src/assets/image/Software.webp",
-        "DevOps & Infrastructure": "/src/assets/image/Devops.webp",
+        "DevOps & Cloud": "/src/assets/image/Devops.webp",
         "Data & AI": "/src/assets/image/AI.webp",
         "Design & User Experience": "/src/assets/image/Design.webp",
     };

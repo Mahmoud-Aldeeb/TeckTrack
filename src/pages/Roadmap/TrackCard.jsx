@@ -6,7 +6,7 @@ const TrackCard = ({ title, desc, img }) => {
     const slug = title
         .toLowerCase()
         .replace(/ & /g, '-')
-        .replace(/ /g, '-');
+        .replace(/ /g, '-').replace(/[^\w-]+/g, '-');
 
     return (
         <div className={`
