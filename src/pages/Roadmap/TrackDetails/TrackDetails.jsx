@@ -19,13 +19,13 @@ export default function FrontendPage() {
       try {
         setLoading(true);
 
-        // جلب كل الـ Categories أولاً لتحديد الـ categoryId الحالي
+
         const categoriesResponse = await axios.get('http://techtrack.runasp.net/api/Category');
         const categories = categoriesResponse.data.filter(item =>
           item.categoryName !== "string"
         );
 
-        // إيجاد الـ Category الحالي بناءً على الـ slug
+
         const foundCategory = categories.find(cat =>
           createSlug(cat.categoryName) === slug
         );

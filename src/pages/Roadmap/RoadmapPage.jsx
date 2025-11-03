@@ -55,7 +55,7 @@ const RoadmapPage = () => {
 
         fetchTracks();
     }, []);
-
+    console.log(tracks);
     if (error) {
         return <ErrorMessage message={error} />;
     }
