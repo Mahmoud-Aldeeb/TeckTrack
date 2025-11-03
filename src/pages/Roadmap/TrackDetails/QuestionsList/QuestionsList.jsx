@@ -27,7 +27,7 @@ const QuestionsList = ({
 
                 let questionsData = response.data;
 
-                // تطبيق الحد إذا كان موجوداً
+
                 if (limit && limit > 0) {
                     questionsData = questionsData.slice(0, limit);
                 }
@@ -45,11 +45,11 @@ const QuestionsList = ({
         fetchQuestions();
     }, [apiUrl, limit]);
 
-    // تطبيق الفلاتر والبحث
+
     useEffect(() => {
         let filtered = questions;
 
-        // فلترة حسب البحث
+
         if (searchTerm) {
             filtered = filtered.filter(question =>
                 question.questionText?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -57,7 +57,7 @@ const QuestionsList = ({
             );
         }
 
-        // فلترة حسب مستوى الصعوبة
+
         if (selectedDifficulty !== 'all') {
             filtered = filtered.filter(question => question.difficultyLevel === selectedDifficulty);
         }
@@ -189,7 +189,6 @@ const QuestionsList = ({
     );
 };
 
-// Component للبطاقة المفردة للأسئلة
 const QuestionCard = ({ question, index }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 

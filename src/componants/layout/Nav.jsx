@@ -118,11 +118,10 @@ export default function Nav() {
                     setActive(link);
                     setIsOpen(false);
                   }}
-                  className={`relative pb-2 hover:text-[var(--color-primary)] ${
-                    active === link.path
+                  className={`relative pb-2 hover:text-[var(--color-primary)] ${active === link.path
                       ? "text-[var(--color-primary)] font-semibold active-link"
                       : ""
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </a>
@@ -150,11 +149,10 @@ export default function Nav() {
               key={index}
               href={link.path}
               onClick={() => setActive(link)}
-              className={`relative pb-2 hover:text-[var(--color-primary)] ${
-                active === link.path
+              className={`relative pb-2 hover:text-[var(--color-primary)] ${active === link.path
                   ? "text-[var(--color-primary)] font-semibold active-link"
                   : ""
-              }`}
+                }`}
             >
               {link.name}
             </a>

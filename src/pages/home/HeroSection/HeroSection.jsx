@@ -1,5 +1,4 @@
 
-
 import heroImg from "/src/assets/image/bg.png";
 import heroVector from "/src/assets/image/Vector.png";
 import arrowVector from "/src/assets/image/arrow-up-right.png";

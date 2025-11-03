@@ -61,13 +61,13 @@ export default function FrontendPage() {
     fetchData();
   }, [slug]);
 
-  // دالة لإنشاء slug من الاسم
+
   const createSlug = (name) => {
     return name
       .toLowerCase()
       .replace(/ & /g, '-')
       .replace(/ /g, '-')
-      .replace(/[^\w-]+/g, '-');
+      .replace(/[^\w-]+/g, '');
   };
 
   if (loading) {
