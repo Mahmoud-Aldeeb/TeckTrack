@@ -25,24 +25,24 @@ const RoadmapPage = () => {
             try {
                 setLoading(true);
                 const response = await axios.get('http://techtrack.runasp.net/api/Category');
-                // const formattedTracks = response.data.map(item => ({
-                //     id: item.categoryId,
-                //     title: item.categoryName,
-                //     desc: item.description,
-                //     img: imagesMap[item.categoryName] || "/src/assets/image/software.webp"
-                // }));
-
-                // setTracks(formattedTracks);
-
-                // تصفية المصفوفة وإزالة العنصر الأخير
-                const filteredData = response.data.slice(0, -1);
-
-                const formattedTracks = filteredData.map(item => ({
+                const formattedTracks = response.data.map(item => ({
                     id: item.categoryId,
                     title: item.categoryName,
                     desc: item.description,
                     img: imagesMap[item.categoryName] || "/src/assets/image/software.webp"
                 }));
+
+                setTracks(formattedTracks);
+
+                // تصفية المصفوفة وإزالة العنصر الأخير
+                // const filteredData = response.data.slice(0, -1);
+
+                // const formattedTracks = filteredData.map(item => ({
+                //     id: item.categoryId, 
+                //     title: item.categoryName,
+                //     desc: item.description,
+                //     img: imagesMap[item.categoryName] || "/src/assets/image/software.webp"
+                // }));
 
                 setTracks(formattedTracks);
                 setLoading(false);

@@ -8,6 +8,7 @@ import { FaReact } from "react-icons/fa";
 import { LuPalette, LuBrainCircuit } from "react-icons/lu";
 import { motion } from "framer-motion";
 
+
 const tracks = [
     { name: 'DevOps', icon: <FiSettings className="w-10 h-10" /> },
     { name: 'UI/UX', icon: <LuPalette className="w-10 h-10" /> },
