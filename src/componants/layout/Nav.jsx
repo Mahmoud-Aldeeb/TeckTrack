@@ -31,7 +31,7 @@ export default function Nav() {
     // { name: "Reviews", path: "/reviews" },
   ];
 
-  // إعدادات الحركة
+
   const menuVariants = {
     hidden: { x: "100%", opacity: 0 },
     visible: {
@@ -63,7 +63,7 @@ export default function Nav() {
           </span>
         </a>
 
-        {/* زر فتح/غلق القائمة */}
+
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="inline-flex items-center p-2 ml-3 text-sm text-gray-600 rounded-lg md:hidden hover:bg-gray-100"
@@ -84,7 +84,7 @@ export default function Nav() {
           </svg>
         </button>
 
-        {/* خلفية شفافة (Overlay) */}
+
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -99,7 +99,7 @@ export default function Nav() {
           )}
         </AnimatePresence>
 
-        {/* قائمة اللينكات للموبايل (Animated) */}
+
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -119,15 +119,15 @@ export default function Nav() {
                     setIsOpen(false);
                   }}
                   className={`relative pb-2 hover:text-[var(--color-primary)] ${active === link.path
-                      ? "text-[var(--color-primary)] font-semibold active-link"
-                      : ""
+                    ? "text-[var(--color-primary)] font-semibold active-link"
+                    : ""
                     }`}
                 >
                   {link.name}
                 </a>
               ))}
 
-              {/* زر Sign Up */}
+
               <div className="flex gap-5">
                 <Btn content={t("nav.signup")} arrow={false} px="11" />
                 <button
@@ -142,7 +142,7 @@ export default function Nav() {
           )}
         </AnimatePresence>
 
-        {/* القائمة العادية للشاشات الكبيرة */}
+
         <div className="hidden md:flex items-center space-x-8">
           {links.map((link, index) => (
             <a
@@ -150,8 +150,8 @@ export default function Nav() {
               href={link.path}
               onClick={() => setActive(link)}
               className={`relative pb-2 hover:text-[var(--color-primary)] ${active === link.path
-                  ? "text-[var(--color-primary)] font-semibold active-link"
-                  : ""
+                ? "text-[var(--color-primary)] font-semibold active-link"
+                : ""
                 }`}
             >
               {link.name}

@@ -2,20 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import QuestionsList from "../TrackDetails/QuestionsList/QuestionsList";
+import VideoWithModal from "./VideoModal";
+import RoadmapSection from "./RoadmapSection";
+import { Btn } from "../../../componants/ui/Btn";
 
 export default function SubSubTrackDetails() {
   const { slug, subSlug, subSubSlug } = useParams();
-  const [isOpen, setIsOpen] = useState(false);
   const [roadmap, setRoadmap] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const openVideo = (e) => {
-    e.preventDefault();
-    setIsOpen(true);
-  };
-
-  const closeVideo = () => setIsOpen(false);
 
   const title = subSubSlug?.replace(/-/g, " ") || "Topic";
 
@@ -74,86 +69,23 @@ export default function SubSubTrackDetails() {
           </p>
         </div>
 
-        {/* === VIDEO + DESCRIPTION === */}
-        <div className="mt-16 flex flex-col md:flex-row items-start gap-10 max-w-6xl mx-auto">
-          {/* Video Card */}
-          <div
-            className="flex-1 w-full min-h-[220px] sm:min-h-[280px] md:min-h-[400px] relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-primary-light to-white group cursor-pointer"
-            onClick={openVideo}
-          >
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-10 h-10 text-primary"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
-          </div>
 
-          {/* Description */}
-          <div className="flex-1 bg-white shadow-md rounded-2xl p-8 border border-primary/20">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-secondary">
-              About This Topic
-            </h2>
-            <p className="text-base md:text-lg text-text leading-relaxed mb-4">
-              This section dives deep into the{" "}
-              <span className="font-semibold">{title}</span> area of{" "}
-              {subSlug?.replace(/-/g, " ")}. You’ll explore advanced tools,
-              frameworks, and techniques that make modern web development
-              efficient, accessible, and scalable.
-            </p>
-            <p className="text-base md:text-lg text-text leading-relaxed">
-              Expect hands-on projects, coding challenges, and real-world case
-              studies. By the end, you’ll be confident in building and deploying
-              production-ready applications that perform beautifully across all
-              platforms.
-            </p>
-          </div>
-        </div>
+
+        {/* === VIDEO SECTION WITH MODAL === */}
+        <VideoWithModal
+          title={title}
+          subSlug={subSlug}
+          slug={slug}
+        />
       </main>
 
-      {/* === VIDEO MODAL === */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
-            <button
-              onClick={closeVideo}
-              className="absolute top-3 right-3 z-10 text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-
-            <div className="relative pt-[56.25%]">
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-                title={`${title} video`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
+      {/* === ROADMAP SECTION === */}
+      <RoadmapSection
+        roadmap={roadmap}
+        loading={loading}
+        error={error}
+        displayTitle={displayTitle}
+      />
       {/* === QUESTIONS SECTION === */}
       <QuestionsList
         apiUrl="http://techtrack.runasp.net/api/InterviewQuestion"
@@ -162,57 +94,9 @@ export default function SubSubTrackDetails() {
         showFilters={true}
       />
 
-      {/* === ROADMAP SECTION === */}
-      <section className="bg-gradient-to-b from-white to-primary-light py-20 px-6 mt-10 rounded-2xl shadow-lg">
-        <div className="max-w-6xl mx-auto text-center">
-          {loading && <p className="text-gray-500">Loading roadmap...</p>}
-          {error && <p className="text-red-500">{error}</p>}
-
-          {!loading && roadmap && (
-            <>
-              <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
-                {displayTitle}
-              </h2>
-              <p className="text-lg text-text max-w-3xl mx-auto mb-12">
-                {roadmap.description}
-              </p>
-
-              <div className="relative border-l-4 border-primary max-w-4xl mx-auto">
-                {roadmap.roadmapSteps?.length > 0
-                  ? roadmap.roadmapSteps
-                    .sort((a, b) => a.stepOrder - b.stepOrder)
-                    .map((step, index) => (
-                      <div
-                        key={step.roadmapStepId}
-                        className="mb-10 ml-6 group relative"
-                      >
-                        <div className="absolute -left-3.5 w-7 h-7 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform shadow-md">
-                          {index + 1}
-                        </div>
-                        <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-primary/20">
-                          <h3 className="text-2xl font-semibold text-secondary mb-2">
-                            {step.stepTitle}
-                          </h3>
-                          <p className="text-gray-700 leading-relaxed">
-                            {step.stepDescription}
-                          </p>
-                        </div>
-                      </div>
-                    ))
-                  : <p className="text-gray-500">No steps available for this roadmap.</p>}
-              </div>
-            </>
-          )}
-
-          {!loading && !roadmap && !error && (
-            <p className="text-gray-500">No roadmap available for this track.</p>
-          )}
-        </div>
-      </section>
     </div>
   );
 }
-
 
 
 //another roadmap design

@@ -1,4 +1,4 @@
-// src/components/ui/ErrorMessage.jsx
+
 import React from 'react';
 
 const ErrorMessage = ({ message }) => {

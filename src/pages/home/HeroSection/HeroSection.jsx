@@ -3,11 +3,11 @@ import heroImg from "/src/assets/image/bg.png";
 import heroVector from "/src/assets/image/Vector.png";
 import arrowVector from "/src/assets/image/arrow-up-right.png";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom"; // ✅ import navigation hook
+import { useNavigate } from "react-router-dom"; // import navigation hook
 
 function HeroSection() {
   const { t } = useTranslation();
-  const navigate = useNavigate(); // ✅ initialize it
+  const navigate = useNavigate(); // initialize it
 
   const head = t("HeroSection.head");
   const title = t("HeroSection.title");
@@ -15,7 +15,7 @@ function HeroSection() {
   const Primary_Button = t("HeroSection.Primary_Button");
   const Explore_Companies = t("HeroSection.Explore_Companies");
 
-  // ✅ Navigation handlers
+  //  Navigation handlers
   const handleStartJourney = () => {
     navigate("/roadmap");
   };
@@ -99,7 +99,7 @@ function HeroSection() {
               />
             </button>
 
-            {/* 🏢 Explore Companies */}
+            {/* Explore Companies */}
             <button
               onClick={handleExploreCompanies}
               className="inline-flex items-center justify-center gap-3 px-10 py-2 rounded-full border-3 border-[#1E58F9] text-[#1E58F9] font-medium transition-all duration-300 hover:border-[#1e58f9d3] hover:text-[#1e58f9b7]"

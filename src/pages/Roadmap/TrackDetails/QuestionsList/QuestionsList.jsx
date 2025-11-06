@@ -235,9 +235,9 @@ const QuestionCard = ({ question, index }) => {
                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getTypeColor(question.questionType)}`}>
                                     {question.questionType}
                                 </span>
-                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
+                                {/* <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
                                     Tech ID: {question.technologyId}
-                                </span>
+                                </span> */}
                             </div>
                         </div>
                     </div>

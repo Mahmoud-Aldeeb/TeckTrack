@@ -18,7 +18,7 @@ const AnimationCard = () => {
     <>
       {isLargeScreen ? (
         <div className="w-[calc(100%-30px)] sm:w-1/2 flex justify-center items-center gap-3 h-[580px] overflow-hidden">
-          {/* العمود الأيسر */}
+
           <motion.div
             className="left flex flex-col justify-center items-center gap-3"
             animate={{ y: ["80%", "-80%"] }}
@@ -31,7 +31,7 @@ const AnimationCard = () => {
             </div>
           </motion.div>
 
-          {/* العمود الأيمن */}
+
           <motion.div
             className="right flex flex-col justify-center items-center gap-3"
             animate={{ y: ["-80%", "80%"] }}
@@ -45,7 +45,7 @@ const AnimationCard = () => {
           </motion.div>
         </div>
       ) : (
-        /* موبايل */
+
         <div className="w-[calc(100%-30px)] sm:w-1/2 flex justify-center items-center gap-3 h-[580px] overflow-hidden">
           <motion.div
             className="left flex flex-col justify-center items-center gap-3"

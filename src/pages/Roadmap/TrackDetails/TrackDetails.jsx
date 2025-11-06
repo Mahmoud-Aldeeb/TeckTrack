@@ -41,7 +41,7 @@ export default function FrontendPage() {
 
         setCurrentCategory(foundCategory);
 
-        // جلب الـ SubCategories وفلترتها حسب الـ categoryId
+
         const subCategoriesResponse = await axios.get('http://techtrack.runasp.net/api/SubCategories');
         const filteredSubCategories = subCategoriesResponse.data.filter(item =>
           item.categoryId === foundCategory.categoryId &&
