@@ -4,6 +4,7 @@ import Opportunity from "./Opportunity/Opportunity";
 import Reviews from "./Review/Reviews";
 import { Helmet } from "react-helmet";
 import HeroSection from "./HeroSection/HeroSection";
+import RoadmapLine from "../Roadmap/TrackDetails/RoadmapLine";
 
 const Home = () => {
   return (
@@ -16,7 +17,8 @@ const Home = () => {
         />
       </Helmet>
       <div>
-        <HeroSection/>
+        <RoadmapLine />
+        <HeroSection />
         <Tracks />
         <Opportunity />
         <Reviews />
@@ -24,5 +26,6 @@ const Home = () => {
     </>
   );
 };
+
 
 export default Home;
