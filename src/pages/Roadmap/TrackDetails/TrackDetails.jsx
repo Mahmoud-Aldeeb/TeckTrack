@@ -230,14 +230,14 @@ export default function CategoryPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-6">
       {/* Header */}
-      <div className="max-w-4xl mx-auto text-center mt-4">
+      <div className="max-w-4xl mx-auto text-center mt-5">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           {category.categoryName}
         </h1>
-        <p className="text-gray-900 text-sm text-center mb-8 max-w-2xl">
+        <p className="text-gray-900 text-sm  mb-8 ">
           {category.description}
         </p>
-        <div className="w-32 h-1 bg-gray-900 mx-auto mb-10"></div>
+        <div className="w-3xs h-1 bg-gray-900 mx-auto mb-10"></div>
       </div>
 
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">

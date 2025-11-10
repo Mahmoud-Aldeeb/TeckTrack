@@ -4,7 +4,7 @@ import Opportunity from "./Opportunity/Opportunity";
 import Reviews from "./Review/Reviews";
 import { Helmet } from "react-helmet";
 import HeroSection from "./HeroSection/HeroSection";
-import RoadmapLine from "../Roadmap/TrackDetails/RoadmapLine";
+// import RoadmapLine from "../Roadmap/TrackDetails/RoadmapLine";
 
 const Home = () => {
   return (
@@ -23,7 +23,7 @@ const Home = () => {
         <Tracks />
         <Opportunity />
         <Reviews />
-        <RoadmapLine />
+        {/* <RoadmapLine /> */}
 
       </div>
     </>

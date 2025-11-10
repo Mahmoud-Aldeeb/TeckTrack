@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from '../../../../componants/ui/Loader';
 import ErrorMessage from '../../../../componants/ui/Error';
+import { useParams } from "react-router-dom";
+
 
 const QuestionsList = ({
     apiUrl,
-    limit = null,
+    technologyId,
     showSearch = true,
     showFilters = true
 }) => {
@@ -19,21 +21,40 @@ const QuestionsList = ({
 
     const difficultyLevels = [...new Set(questions.map(q => q.difficultyLevel))];
 
+    // const { technologyId } = useParams();
+
+
     useEffect(() => {
-        const fetchQuestions = async () => {
+        const fetchTechnologies = async () => {
+            try {
+                const res = await axios.get(`http://techtrack.runasp.net/api/Technology/${technologyId}`);
+                const trackData = res.data.data || res.data;
+                setTrack(trackData);
+            } catch (err) {
+                console.error("Error fetching track:", err);
+            }
+        };
+        fetchTechnologies();
+    }, [technologyId]);
+
+    console.log("Current technologyId in QuestionsList:", technologyId);
+    useEffect(() => {
+        const fetchQuestionsForTrack = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get(apiUrl);
-
                 let questionsData = response.data;
+                const TechnologiesQuestions = questionsData.filter(tech => {
+                    return tech.technologyId === parseInt(technologyId);
+                });
 
 
-                if (limit && limit > 0) {
-                    questionsData = questionsData.slice(0, limit);
-                }
+                console.log("All questions:", questionsData);
+                console.log("Current technologyId:", technologyId);
+                console.log("Filtered questions:", TechnologiesQuestions);
 
-                setQuestions(questionsData);
-                setFilteredQuestions(questionsData);
+                setQuestions(TechnologiesQuestions);
+                setFilteredQuestions(TechnologiesQuestions);
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching questions:", err);
@@ -42,12 +63,12 @@ const QuestionsList = ({
             }
         };
 
-        fetchQuestions();
-    }, [apiUrl, limit]);
+        fetchQuestionsForTrack();
+    }, [apiUrl, technologyId]);
 
 
     useEffect(() => {
-        let filtered = questions;
+        let filtered = filteredQuestions;
 
 
         if (searchTerm) {
@@ -69,6 +90,10 @@ const QuestionsList = ({
         setSearchTerm('');
         setSelectedDifficulty('all');
     };
+
+    if (!technologyId) {
+        return <Loader />;
+    }
 
     if (loading) {
         return <Loader />;
@@ -261,7 +286,7 @@ const QuestionCard = ({ question, index }) => {
                         </p>
 
                         {/* Additional Information */}
-                        <div className="mt-6 pt-4 border-t border-gray-200">
+                        {/* <div className="mt-6 pt-4 border-t border-gray-200">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                 <div>
                                     <span className="font-medium text-gray-900">Question ID:</span>
@@ -272,7 +297,7 @@ const QuestionCard = ({ question, index }) => {
                                     <span className="text-gray-600 ml-2">{question.technologyId}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 )}
             </div>
