@@ -2,11 +2,11 @@
 import React from 'react';
 import { Btn } from '../../componants/ui/Btn';
 
-const TrackCard = ({ title, desc, img }) => {
-    const slug = title
-        .toLowerCase()
-        .replace(/ & /g, '-')
-        .replace(/ /g, '-').replace(/[^\w-]+/g, '-');
+const TrackCard = ({ title, desc, img, index }) => {
+    // const slug = title
+    //     .toLowerCase()
+    //     .replace(/ & /g, '-')
+    //     .replace(/ /g, '-').replace(/[^\w-]+/g, '-');
 
     return (
         <div className={`
@@ -52,7 +52,7 @@ const TrackCard = ({ title, desc, img }) => {
 
                 <div className="self-end">
                     <Btn
-                        url={`trackdetails/${slug}`}
+                        url={`roadmap/${index}`}
                         content="View Details"
                         Px="6"
                         className="text-xs xs:text-sm sm:text-base"

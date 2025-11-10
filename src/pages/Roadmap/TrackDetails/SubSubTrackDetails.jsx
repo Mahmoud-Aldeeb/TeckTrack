@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import QuestionsList from "../TrackDetails/QuestionsList/QuestionsList";
 import VideoWithModal from "./VideoModal";
-import RoadmapSection from "./RoadmapSection";
+import RoadmapSection from "./RoadmapLine";
 import { Btn } from "../../../componants/ui/Btn";
 
 export default function SubSubTrackDetails() {
