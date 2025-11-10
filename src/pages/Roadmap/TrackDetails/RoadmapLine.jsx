@@ -8,9 +8,11 @@ const RoadmapLine = () => {
         "Node.js",
         "Express.js",
         "MongoDB",
+
         "Python",
         "Django",
         "Docker",
+
     ];
     const colors = [
         "#FF8F5F",
@@ -30,6 +32,7 @@ const RoadmapLine = () => {
                 const isEven = i % 2 === 0;
                 const color = (index) => index % colors.length;
                 return (
+
                     <div key={i}>
                         {/* الخط مع العنصرين */}
                         <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center items-center relative">
@@ -137,10 +140,12 @@ const RoadmapLine = () => {
                                 </div>
                             ))}
                     </div>
+
                 );
             })}
             {tech.length % 2 !== 0 ? (
                 ((tech.length + 1) / 2) % 2 !== 0 ? (
+
                     <div className="mt-[-32px]">
                         <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
                             <div>
@@ -267,8 +272,10 @@ const RoadmapLine = () => {
                         />
                     </div>
                 </div>
+
             )}
         </section>
     );
 };
+
 export default RoadmapLine;

@@ -17,14 +17,18 @@ const Home = () => {
         />
       </Helmet>
       <div>
+
+
         <HeroSection />
         <Tracks />
         <Opportunity />
         <Reviews />
         <RoadmapLine />
+
       </div>
     </>
   );
 };
+
 
 export default Home;

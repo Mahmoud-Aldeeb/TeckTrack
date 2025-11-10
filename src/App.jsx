@@ -15,8 +15,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/roadmap' element={<RoadmapPage />} />
+
         <Route path='/roadmap/:categoryId' element={<CategoryPage />} />
+
         <Route path="/tracks/:categoryId/:subCategoryId" element={<SubTrackDetails />} />
+
         <Route path="/trackdetails/:categoryId/:subCategoryId/:trackId" element={<SubSubTrackDetails />} />
         <Route path="/companies" element={<Companies />} />
 
