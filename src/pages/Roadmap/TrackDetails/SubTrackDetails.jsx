@@ -156,10 +156,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
+import { useApi } from "../../../context/ApiContext";
 
 export default function SubTrackDetails() {
   const { categoryId, subCategoryId } = useParams(); // نستخدم الـ ID مباشرة
   const navigate = useNavigate();
+  const { getSubCategoriesId, getTracks } = useApi();
 
   const [subCategory, setSubCategory] = useState(null);
   const [tracks, setTracks] = useState([]);
@@ -182,23 +184,25 @@ export default function SubTrackDetails() {
         }
 
 
-        const subRes = await axios.get("http://techtrack.runasp.net/api/SubCategory");
+        // const subRes = await axios.get("http://techtrack.runasp.net/api/SubCategory");
+        const subRes = await getSubCategoriesId(subId);
         if (!subRes.data.success) throw new Error("Failed to fetch subcategories");
 
-        const foundSub = subRes.data.data.find(
-          sub => sub.subCategoryId === subId && sub.categoryId === catId
-        );
+        const foundSub = subRes.data.data;
 
-        if (!foundSub || foundSub.subCategoryName === "string") {
-          setError("Subcategory not found");
-          setLoading(false);
+        // تحقق إنها تابعة للـ category الصح
+        if (foundSub.categoryId !== catId || foundSub.subCategoryName === "string") {
+          setError("Subcategory not found in this category");
           return;
         }
+
+
 
         setSubCategory(foundSub);
 
         // 2. جيب الـ Tracks وفلترها بالـ subCategoryId
-        const trackRes = await axios.get("http://techtrack.runasp.net/api/Track");
+        // const trackRes = await axios.get("http://techtrack.runasp.net/api/Track");
+        const trackRes = await getTracks();
         if (!trackRes.data.success) throw new Error("Failed to fetch tracks");
 
         const filteredTracks = trackRes.data.data

@@ -7,10 +7,15 @@ import axios from 'axios';
 import Loader from '../../componants/ui/Loader';
 import ErrorMessage from '../../componants/ui/Error';
 import { Link } from 'react-router-dom';
+import { useApi } from '../../context/ApiContext';
+import { a } from 'framer-motion/client';
+
 
 
 
 const RoadmapPage = () => {
+    const { getCategories } = useApi();
+
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,15 +25,8 @@ const RoadmapPage = () => {
         const fetchTracks = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('http://techtrack.runasp.net/api/Category');
-                // const formattedTracks = response.data.map(item => ({
-                //     id: item.categoryId,
-                //     title: item.categoryName,
-                //     desc: item.description,
-                //     img: item.imageUrl || "/src/assets/image/software.webp"
-                // }));
-
-                // setTracks(formattedTracks);
+                // const response = await axios.get('http://techtrack.runasp.net/api/Category');
+                const response = await getCategories();
                 if (response.data.success && Array.isArray(response.data.data)) {
                     const formattedTracks = response.data.data.map(item => ({
                         categoryId: item.categoryId,

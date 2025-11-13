@@ -168,8 +168,10 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
+import { useApi } from '../../../context/ApiContext';
 
 export default function CategoryPage() {
+  const { getCategoriesId, getSubCategories } = useApi();
   const { categoryId } = useParams(); // الـ ID من الـ URL
   const navigate = useNavigate();
 
@@ -177,6 +179,7 @@ export default function CategoryPage() {
   const [subCategories, setSubCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -191,23 +194,25 @@ export default function CategoryPage() {
           return;
         }
 
-        // 1. جيب كل الكاتيجوريز
-        const catRes = await axios.get("http://techtrack.runasp.net/api/Category");
+
+        // const catRes = await axios.get("http://techtrack.runasp.net/api/Category");
+        const catRes = await getCategoriesId(id);
         const categories = catRes.data.success ? catRes.data.data : [];
 
         // 2. ابحث عن الكاتيجوري بالـ ID
-        const foundCategory = categories.find(cat => cat.categoryId === id);
+        // const foundCategory = categories.find(cat => cat.categoryId === id);
 
-        if (!foundCategory) {
+        if (!categories) {
           setError("Category not found");
           setLoading(false);
           return;
         }
 
-        setCategory(foundCategory);
+        setCategory(categories);
 
-        // 3. جيب الـ SubCategories وفلترهم بالـ categoryId
-        const subRes = await axios.get("http://techtrack.runasp.net/api/SubCategory");
+
+        // const subRes = await axios.get("http://techtrack.runasp.net/api/SubCategory");
+        const subRes = await getSubCategories();
         const filteredSubs = (subRes.data.success ? subRes.data.data : [])
           .filter(sub => sub.categoryId === id)
           .filter(sub => sub.subCategoryName !== "string");

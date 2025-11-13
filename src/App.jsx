@@ -11,6 +11,7 @@ import Footer from './componants/layout/Footer.jsx';
 import Companies from './pages/Companies/Compmain.jsx';
 function App() {
   return (
+
     <Router>
       <Nav />
       <Routes>
@@ -29,6 +30,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+
   );
 }
 

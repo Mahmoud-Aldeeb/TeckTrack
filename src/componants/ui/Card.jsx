@@ -118,6 +118,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Loader from './Loader';
 import ErrorMessage from './Error';
+import { useApi } from '../../context/ApiContext';
+
 
 const colorBg = [
   '#000000', '#FFFF00', '#5757E8',
@@ -126,6 +128,7 @@ const colorBg = [
 ];
 
 const Card = ({ companyIndex = 0, searchTerm = '' }) => {
+  const { getCompanies } = useApi();
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -135,8 +138,10 @@ const Card = ({ companyIndex = 0, searchTerm = '' }) => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get('http://techtrack.runasp.net/api/Company');
-        setCompanies(response.data);
+        // const response = await axios.get('http://techtrack.runasp.net/api/Company');
+        // setCompanies(response.data);
+        const res = await getCompanies();
+        setCompanies(res.data);
       } catch (err) {
 
         setError("Failed to load companies. Please try again.");
@@ -222,3 +227,60 @@ const Card = ({ companyIndex = 0, searchTerm = '' }) => {
 };
 
 export default Card;
+
+
+
+
+
+// // Card.jsx (محدث)
+// import React from 'react';
+
+// const colorBg = [
+//   '#000000', '#FFFF00', '#5757E8',
+//   '#D2F0E4', '#09090B', '#2A2537',
+//   '#FFFFFF', '#261B53', '#FEFEFE'
+// ];
+
+// const Card = ({ company, index = 0 }) => {
+//   if (!company) return null;
+
+//   const bgColor = colorBg[index % colorBg.length];
+//   const isBlackBg = ['#000000', '#09090B', '#261B53'].includes(bgColor);
+//   const textColor = isBlackBg ? 'text-white' : 'text-gray-900';
+//   const descColor = isBlackBg ? 'text-gray-300' : 'text-gray-700';
+
+//   return (
+//     <a href={company.websiteUrl} target="_blank" rel="noopener noreferrer" className="block">
+//       <div
+//         className={`border-2 border-black rounded-3xl py-8 px-3 xl:p-8 h-[350px] flex flex-col w-full md:w-[250px] xl:w-[286px] 2xl:w-[350px] justify-center items-center hover:shadow-xl transition-shadow duration-300`}
+//         style={{ backgroundColor: bgColor }}
+//       >
+//         <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+//           {company.companyName?.charAt(0) || 'C'}
+//         </div>
+
+//         <p className={`titleBrand text-lg mt-3 font-[500] text-center ${textColor}`}>
+//           {company.companyName}
+//         </p>
+
+//         <div className="flex justify-center items-center bg-[#CDDAFE] mt-2 px-3 py-1 rounded-full">
+//           <p className="text-sm text-indigo-700 font-medium">{company.industry}</p>
+//         </div>
+
+//         <div className="contentCard my-4 text-center flex-1 overflow-hidden">
+//           <p className={`text-[14px] font-[400] leading-[150%] line-clamp-3 ${descColor}`}>
+//             {company.description}
+//           </p>
+//         </div>
+
+//         <div className="mt-auto">
+//           <span className="text-xs text-blue-600 font-medium hover:underline">
+//             Visit Website
+//           </span>
+//         </div>
+//       </div>
+//     </a>
+//   );
+// };
+
+// export default Card;

@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from '../../../../componants/ui/Loader';
 import ErrorMessage from '../../../../componants/ui/Error';
-import { useParams } from "react-router-dom";
+import { useApi } from "../../../../context/ApiContext";
+
 
 
 const QuestionsList = ({
-    apiUrl,
     technologyId,
     showSearch = true,
     showFilters = true
 }) => {
+    const { getInterviewQuestions, getTechnologiesId } = useApi();
     const [questions, setQuestions] = useState([]);
     const [filteredQuestions, setFilteredQuestions] = useState([]);
+    const [technology, setTechnology] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
@@ -21,15 +23,16 @@ const QuestionsList = ({
 
     const difficultyLevels = [...new Set(questions.map(q => q.difficultyLevel))];
 
-    // const { technologyId } = useParams();
+
 
 
     useEffect(() => {
         const fetchTechnologies = async () => {
             try {
-                const res = await axios.get(`http://techtrack.runasp.net/api/Technology/${technologyId}`);
-                const trackData = res.data.data || res.data;
-                setTrack(trackData);
+                // const res = await axios.get(`http://techtrack.runasp.net/api/Technology/${technologyId}`);
+                const res = await getTechnologiesId(technologyId);
+                const technologyData = res.data.data || res.data;
+                setTechnology(technologyData);
             } catch (err) {
                 console.error("Error fetching track:", err);
             }
@@ -42,7 +45,9 @@ const QuestionsList = ({
         const fetchQuestionsForTrack = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(apiUrl);
+                // const response = await axios.get(apiUrl);
+                const response = await getInterviewQuestions();
+
                 let questionsData = response.data;
                 const TechnologiesQuestions = questionsData.filter(tech => {
                     return tech.technologyId === parseInt(technologyId);
@@ -64,7 +69,7 @@ const QuestionsList = ({
         };
 
         fetchQuestionsForTrack();
-    }, [apiUrl, technologyId]);
+    }, [technologyId]);
 
 
     useEffect(() => {
@@ -260,9 +265,7 @@ const QuestionCard = ({ question, index }) => {
                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getTypeColor(question.questionType)}`}>
                                     {question.questionType}
                                 </span>
-                                {/* <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
-                                    Tech ID: {question.technologyId}
-                                </span> */}
+
                             </div>
                         </div>
                     </div>
@@ -285,19 +288,7 @@ const QuestionCard = ({ question, index }) => {
                             {question.sampleAnswer}
                         </p>
 
-                        {/* Additional Information */}
-                        {/* <div className="mt-6 pt-4 border-t border-gray-200">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                                <div>
-                                    <span className="font-medium text-gray-900">Question ID:</span>
-                                    <span className="text-gray-600 ml-2">{question.questionId}</span>
-                                </div>
-                                <div>
-                                    <span className="font-medium text-gray-900">Technology ID:</span>
-                                    <span className="text-gray-600 ml-2">{question.technologyId}</span>
-                                </div>
-                            </div>
-                        </div> */}
+
                     </div>
                 )}
             </div>

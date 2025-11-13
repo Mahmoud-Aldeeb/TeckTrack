@@ -104,10 +104,13 @@ import axios from "axios";
 import VideoWithModal from "./VideoModal";
 import RoadmapSection from "./RoadmapLine";
 import QuestionsList from "../TrackDetails/QuestionsList/QuestionsList";
+import { useApi } from "../../../context/ApiContext";
+import { a } from "framer-motion/client";
 
 export default function SubSubTrackDetails() {
   const { trackId, categoryId, subCategoryId } = useParams();
   const baseUrl = "http://techtrack.runasp.net/api";
+  const { getTracksId, getTechnologies } = useApi();
 
   const [track, setTrack] = useState(null);
   const [technologies, setTechnologies] = useState([]);
@@ -121,7 +124,8 @@ export default function SubSubTrackDetails() {
   useEffect(() => {
     const fetchTrack = async () => {
       try {
-        const res = await axios.get(`${baseUrl}/Track/${trackId}`);
+        // const res = await axios.get(`${baseUrl}/Track/${trackId}`);
+        const res = await getTracksId(trackId);
         const trackData = res.data.data || res.data;
         setTrack(trackData);
       } catch (err) {
@@ -136,17 +140,16 @@ export default function SubSubTrackDetails() {
     const fetchTechnologiesForTrack = async () => {
       try {
         // نجيب كل الـ Technologies
-        const res = await axios.get(`${baseUrl}/Technology`);
+        // const res = await axios.get(`${baseUrl}/Technology`);
+        const res = await getTechnologies();
         const allTech = res.data.data || res.data;
 
         console.log("🔧 All Technologies:", allTech);
 
         // نفلتر علشان نجيب الـ Technologies اللي تخص التراك الحالي
         const trackTechnologies = allTech.filter(tech => {
-          // جرب طرق مختلفة للفلترة
-          return tech.trackId === parseInt(trackId) ||
-            tech.trackName === track?.trackName ||
-            (track?.technologyIds && track.technologyIds.includes(tech.id));
+
+          return tech.trackId === parseInt(trackId);
         });
 
         console.log("🎯 Technologies for this track:", trackTechnologies);
@@ -213,9 +216,9 @@ export default function SubSubTrackDetails() {
         <div className="flex justify-center gap-4 flex-wrap mb-8">
           {technologies.map(tech => (
             <button
-              key={tech.id}
+              key={tech.technologyId}
               onClick={() => handleTechClick(tech)}
-              className={`px-4 py-2 rounded-full font-bold transition ${activeTech?.id === tech.id
+              className={`px-4 py-2 rounded-full font-bold transition ${activeTech?.technologyId === tech.technologyId
                 ? "bg-blue-600 text-white"
                 : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                 }`}
@@ -253,7 +256,7 @@ export default function SubSubTrackDetails() {
       {/* ===== Questions Section ===== */}
       {activeTech && (
         <QuestionsList
-          apiUrl={`${baseUrl}/InterviewQuestion`}
+          // apiUrl={`${baseUrl}/InterviewQuestion`}
           technologyId={activeTech?.technologyId}
           showSearch={true}
           showFilters={true}
