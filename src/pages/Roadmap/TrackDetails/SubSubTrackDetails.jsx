@@ -23,11 +23,9 @@
 //           "http://techtrack.runasp.net/api/Roadmap"
 //         );
 
-//         console.log("Fetched Roadmap Data:", response.data);
 
 //         // Format URL slug for matching
 //         const formattedSlug = subSubSlug?.replace(/-/g, " ").toLowerCase();
-//         console.log("Searching for roadmap matching:", formattedSlug);
 
 //         // Match roadmap: slug can be partial or simplified
 //         const matched = response.data.find((r) =>
@@ -99,7 +97,7 @@
 // }
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import VideoWithModal from "./VideoModal";
 import RoadmapSection from "./RoadmapLine";
@@ -144,7 +142,6 @@ export default function SubSubTrackDetails() {
         const res = await getTechnologies();
         const allTech = res.data.data || res.data;
 
-        console.log("🔧 All Technologies:", allTech);
 
         // نفلتر علشان نجيب الـ Technologies اللي تخص التراك الحالي
         const trackTechnologies = allTech.filter(tech => {
@@ -152,7 +149,6 @@ export default function SubSubTrackDetails() {
           return tech.trackId === parseInt(trackId);
         });
 
-        console.log("🎯 Technologies for this track:", trackTechnologies);
 
         setTechnologies(trackTechnologies);
 
@@ -196,13 +192,44 @@ export default function SubSubTrackDetails() {
     };
     fetchRoadmap();
   }, [subCategoryId]);
+  const [categoryName, setCategoryName] = useState("");
+  const [subCategoryName, setSubCategoryName] = useState("");
 
+  useEffect(() => {
+      const getCategoryName = async () => {
+        try {
+          const res = await fetch(`http://techtrack.runasp.net/api/Category/${categoryId}`);
+          const data = await res.json();
+          if (data && data.data && data.data.categoryName) {
+            setCategoryName(data.data.categoryName);
+          }
+        } catch (error) {
+          console.error("Error fetching category:", error);
+        }
+      };
+    
+      if (categoryId) getCategoryName();
+    }, [categoryId]);
+  useEffect(() => {
+      const getSubCategoryId = async () => {
+        try {
+          const res = await fetch(`http://techtrack.runasp.net/api/SubCategory/${subCategoryId}`);
+          const data = await res.json();
+          if (data && data.data && data.data.subCategoryName) {
+            setSubCategoryName(data.data.subCategoryName);
+          }
+        } catch (error) {
+          console.error("Error fetching subCategoryName:", error);
+        }
+      };
+    
+      if (subCategoryId) getSubCategoryId();
+    }, [subCategoryId]);
 
-  console.log("Current Track:", technologies);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-light to-white text-text flex flex-col">
-      <main className="flex-1 container mx-auto px-6 py-16 md:py-24 text-left space-y-12">
+      <main className="flex-1 container mx-auto px-6 mt-20 py-16 md:py-24 text-left space-y-12">
 
         {/* ===== Header ===== */}
         <div className="max-w-5xl mx-auto space-y-4">
@@ -210,6 +237,28 @@ export default function SubSubTrackDetails() {
             {track?.trackName || "Track Details"}
           </h1>
           <p>{track?.description}</p>
+          <div className="flex flex-col md:flex-row gap-2 md:justify-start md:items-center pb-2">
+            <div className="flex gap-2 justify-start items-center">
+              <Link to={"/roadmap/"} className="text-[12px] md:text-[15px] text-gray-400">
+                Roadmaps
+              </Link>
+              /
+              <Link to={`/roadmap/${categoryId}`} className="text-[12px] md:text-[15px] text-gray-400">
+                {categoryName}
+              </Link>
+              /
+              <Link to={`/roadmap/${categoryId}/${subCategoryId}`} className="text-[12px] md:text-[15px] text-gray-400">
+                {subCategoryName}
+              </Link>
+            </div>
+            <div className="flex gap-2 justify-start items-center">
+              
+              /
+              <Link to={`/roadmap/${categoryId}/${subCategoryId}/${subCategoryId}`} className="text-[12px] md:text-[15px] text-secondary">
+                {track?.trackName || "Track Details"}
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* ===== Buttons for Technologies ===== */}
@@ -218,7 +267,7 @@ export default function SubSubTrackDetails() {
             <button
               key={tech.technologyId}
               onClick={() => handleTechClick(tech)}
-              className={`px-4 py-2 rounded-full font-bold transition ${activeTech?.technologyId === tech.technologyId
+              className={`px-4 py-2 rounded-full font-bold cursor-pointer transition duration-300 ${activeTech?.technologyId === tech.technologyId
                 ? "bg-blue-600 text-white"
                 : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                 }`}
@@ -232,7 +281,7 @@ export default function SubSubTrackDetails() {
         {activeTech && (
           <div className="max-w-5xl mx-auto p-6 bg-white rounded-xl shadow-md">
             <h2 className="text-2xl font-bold mb-2">{activeTech.name}</h2>
-            <p>{activeTech.description}</p>
+            <p className=" line-clamp-1">{activeTech.description}</p>
           </div>
         )}
 
@@ -241,6 +290,7 @@ export default function SubSubTrackDetails() {
           slug={categoryId}
           subSlug={subCategoryId}
           title={activeTech?.name || ""}
+          description={activeTech?.description || ""}
         />
 
       </main>

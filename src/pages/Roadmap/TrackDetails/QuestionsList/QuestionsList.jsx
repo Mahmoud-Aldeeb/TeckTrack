@@ -40,7 +40,6 @@ const QuestionsList = ({
         fetchTechnologies();
     }, [technologyId]);
 
-    console.log("Current technologyId in QuestionsList:", technologyId);
     useEffect(() => {
         const fetchQuestionsForTrack = async () => {
             try {
@@ -54,9 +53,6 @@ const QuestionsList = ({
                 });
 
 
-                console.log("All questions:", questionsData);
-                console.log("Current technologyId:", technologyId);
-                console.log("Filtered questions:", TechnologiesQuestions);
 
                 setQuestions(TechnologiesQuestions);
                 setFilteredQuestions(TechnologiesQuestions);
@@ -175,15 +171,15 @@ const QuestionsList = ({
             )}
 
             {/* Results Count */}
-            <div className="mb-6 flex justify-between items-center">
+            <div className="mb-6 flex flex-col gap-3 sm:gap-0 sm:flex-row justify-start sm:justify-between sm:items-center ">
                 <p className="text-gray-600">
                     Showing {filteredQuestions.length} of {questions.length} questions
                 </p>
 
                 {/* Quick Stats */}
                 <div className="flex gap-4 text-sm text-gray-500">
-                    <span>Technical: {questions.filter(q => q.questionType === 'technical').length}</span>
-                    <span>Behavioral: {questions.filter(q => q.questionType === 'behavioral').length}</span>
+                    <span>Technical: {questions.filter(q => q.questionType.toLowerCase() === 'technical').length}</span>
+                    <span>Behavioral: {questions.filter(q => q.questionType.toLowerCase() === 'behavioral').length}</span>
                 </div>
             </div>
 
@@ -249,7 +245,7 @@ const QuestionCard = ({ question, index }) => {
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
             <div className="p-6">
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-col md:flex-row gap-10 md:gap-0 items-start justify-between mb-4">
                     <div className="flex items-start space-x-4 rtl:space-x-reverse flex-1">
                         <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                             <span className="text-blue-600 font-semibold">#{index + 1}</span>
@@ -272,7 +268,7 @@ const QuestionCard = ({ question, index }) => {
 
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="flex-shrink-0 ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+                        className="flex-shrink-0   md:ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium cursor-pointer"
                     >
                         {isExpanded ? 'Hide Answer' : 'Show Answer'}
                     </button>

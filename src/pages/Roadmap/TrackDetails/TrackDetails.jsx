@@ -29,7 +29,6 @@
 
 //         } else {
 //           throw new Error('Unexpected API response');
-//           console.log("All categories without filter:", categories);
 //         }
 
 
@@ -233,19 +232,29 @@ export default function CategoryPage() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-6">
+    <div className="min-h-screen px-3 bg-white pt-16 sm:pt-20 flex flex-col items-center">
       {/* Header */}
-      <div className="max-w-4xl mx-auto text-center mt-5">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          {category.categoryName}
-        </h1>
-        <p className="text-gray-900 text-sm  mb-8 ">
-          {category.description}
-        </p>
-        <div className="w-3xs h-1 bg-gray-900 mx-auto mb-10"></div>
-      </div>
+      <section className="w-full mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-15 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-5 lg:mb-6 leading-tight">
+            {category.categoryName}
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-3xl mx-auto">
+            {category.description}
+          </p>
+          <div className="flex gap-2 justify-center items-center pb-2">
+            <Link to={"/roadmap/"} className="text-[15px] text-gray-600">
+              Roadmaps
+            </Link>
+            /
+            <Link to={`/roadmap/${category.categoryId}`} className="text-[15px]">
+              {category.categoryName}
+            </Link>
+          </div>
+          <div className="w-2xs md:w-lg h-px bg-black  mx-auto"></div>
+      </section>
+      
 
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+      <h2 className="text-3xl font-bold text-center mb-10 sm:mb-12 lg:mb-15 text-gray-800">
         Specialization Tracks
       </h2>
 
@@ -254,7 +263,7 @@ export default function CategoryPage() {
         {subCategories.map((sub) => (
           <Link
             key={sub.subCategoryId}
-            to={`/tracks/${categoryId}/${sub.subCategoryId}`} // رابط بالـ ID فقط
+            to={`/roadmap/${categoryId}/${sub.subCategoryId}`} // رابط بالـ ID فقط
             className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 flex flex-col h-full"
           >
             {sub.imageUrl && (

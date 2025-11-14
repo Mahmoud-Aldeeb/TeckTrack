@@ -20,10 +20,10 @@ function App() {
 
         <Route path='/roadmap/:categoryId' element={<CategoryPage />} />
 
-        <Route path="/tracks/:categoryId/:subCategoryId" element={<SubTrackDetails />} />
+        <Route path="/roadmap/:categoryId/:subCategoryId" element={<SubTrackDetails />} />
 
-        <Route path="/trackdetails/:categoryId/:subCategoryId/:trackId" element={<SubSubTrackDetails />} />
-        {/* <Route path="/trackdetails/:categoryId/:subCategoryId/:trackId/:technologyId" element={<QuestionsList />} /> */}
+        <Route path="/roadmap/:categoryId/:subCategoryId/:trackId" element={<SubSubTrackDetails />} />
+
         <Route path="/companies" element={<Companies />} />
 
         {/* <Route path='/reviews' element={<Reviews />} /> */}

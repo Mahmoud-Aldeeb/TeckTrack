@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 export default function Footer() {
   const { t } = useTranslation();
 
-  // 🧩 الأعمدة (جاهزة للترجمة)
   const columns = [
     {
       title: t("footer.explore.title"),
@@ -36,7 +35,7 @@ export default function Footer() {
       <div className="container mx-auto flex flex-wrap justify-between gap-8 md:gap-12 lg:gap-16 px-8 max-w-7xl">
         {/* 👣 Left Section */}
         <div className="w-full md:w-1/3 lg:w-1/4 mb-8 md:mb-0">
-          <a href="#" className="flex items-center gap-2 mb-6">
+          <a href="/" className="flex items-center gap-2 mb-6">
             <img
               src="/src/assets/image/logo2.png"
               alt="Logo"
@@ -56,7 +55,7 @@ export default function Footer() {
               <a
                 key={`icon-${index}`}
                 href="#"
-                className="w-9 h-9 bg-[var(--color-primary)] rounded-full flex items-center justify-center hover:bg-[var(--secondary-color)] transition-transform hover:scale-110"
+                className="w-9 h-9 bg-[var(--color-primary)] rounded-full flex items-center justify-center hover:bg-[var(--color-secondary)] transition-transform hover:scale-110"
               >
                 <Icon className="text-[var(--color-white)] w-5 h-5" />
               </a>
@@ -92,7 +91,7 @@ export default function Footer() {
       <div className="mx-auto bg-[var(--color-primary)] text-white flex justify-center py-2 mt-16">
         <p className="mb-0 text-center">
           © 2025 TechTrack
-          <span className="font-black text-2xl mx-0.5">|</span>
+          <span className="font-black text-2xl mx-0.5"> | </span>
           {t("footer.rights")}
         </p>
       </div>

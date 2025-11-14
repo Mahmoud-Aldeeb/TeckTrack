@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const VideoWithModal = ({ title, subSlug, slug }) => {
+const VideoWithModal = ({ title, subSlug, description }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openVideo = (e) => {
@@ -13,7 +13,7 @@ const VideoWithModal = ({ title, subSlug, slug }) => {
     return (
         <>
             {/* Video Section */}
-            <div className="mt-16 flex flex-col md:flex-row items-start gap-10 max-w-6xl mx-auto">
+            <div className="mt-16 flex flex-col lg:flex-row items-start gap-10 max-w-6xl mx-auto">
                 {/* Video Card */}
                 <div
                     className="flex-1 w-full min-h-[220px] sm:min-h-[280px] md:min-h-[400px] relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-primary-light to-white group cursor-pointer"
@@ -39,17 +39,7 @@ const VideoWithModal = ({ title, subSlug, slug }) => {
                         About This Topic
                     </h2>
                     <p className="text-base md:text-lg text-text leading-relaxed mb-4">
-                        This section dives deep into the{" "}
-                        <span className="font-semibold">{title}</span> area of{" "}
-                        {subSlug?.replace(/-/g, " ")}. You'll explore advanced tools,
-                        frameworks, and techniques that make modern web development
-                        efficient, accessible, and scalable.
-                    </p>
-                    <p className="text-base md:text-lg text-text leading-relaxed">
-                        Expect hands-on projects, coding challenges, and real-world case
-                        studies. By the end, you'll be confident in building and deploying
-                        production-ready applications that perform beautifully across all
-                        platforms.
+                        {description}
                     </p>
                 </div>
             </div>

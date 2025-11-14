@@ -122,9 +122,9 @@ import { useApi } from '../../context/ApiContext';
 
 
 const colorBg = [
-  '#000000', '#FFFF00', '#5757E8',
-  '#D2F0E4', '#09090B', '#2A2537',
-  '#FFFFFF', '#261B53', '#FEFEFE'
+  '#ff8383', '#ff81bc', '#70ffe0',
+  '#D2F0E4', '#adadff', '#7bff8d',
+  '#ffd891', '#faf05f', '#d99fff'
 ];
 
 const Card = ({ companyIndex = 0, searchTerm = '' }) => {
@@ -165,7 +165,7 @@ const Card = ({ companyIndex = 0, searchTerm = '' }) => {
   const currentCompany = filteredCompanies[companyIndex];
   const bgColor = colorBg[companyIndex % colorBg.length];
 
-  const isBlackBg = bgColor === '#000000' || bgColor === '#09090B' || bgColor === '#261B53';
+  const isBlackBg = bgColor === '#000000' || bgColor === '#0000ff' || bgColor === '#261B53';
   const textColorClass = isBlackBg ? 'text-white' : 'text-gray-900';
   const descriptionColorClass = isBlackBg ? 'text-gray-300' : 'text-gray-700';
 
@@ -217,7 +217,7 @@ const Card = ({ companyIndex = 0, searchTerm = '' }) => {
         </div>
 
         <div className="mt-auto">
-          <span className="text-xs text-blue-600 font-medium hover:underline">
+          <span className="text-xs text-blue-600 font-medium hover:underline hover:text-blue-900 transition duration-100">
             Visit Website
           </span>
         </div>

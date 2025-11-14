@@ -25,7 +25,7 @@ const RoadmapLine = () => {
     ];
 
     return (
-        <section className="w-full py-50 flex flex-col items-center ">
+        <section className="w-full py-20 flex flex-col items-center ">
             {Array.from({ length: Math.ceil(tech.length / 2) }).map((_, i) => {
                 const leftIndex = i * 2;
                 const rightIndex = i * 2 + 1;
@@ -35,7 +35,7 @@ const RoadmapLine = () => {
 
                     <div key={i}>
                         {/* الخط مع العنصرين */}
-                        <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center items-center relative">
+                        <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center items-center relative">
                             {isEven ? (
                                 <>
                                     {/* العنصر على اليسار */}
@@ -119,7 +119,7 @@ const RoadmapLine = () => {
                         {/* نصف دايرة بعد كل صف */}
                         {i < Math.ceil(tech.length / 2) - 1 &&
                             (isEven ? (
-                                <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-end relative z-[-1]">
+                                <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-end relative z-[-1]">
                                     <div
                                         className="w-20 md:w-60 h-60 rounded-r-full border-[8px]  md:border-[12px] my-[-22px] me-[-50px] md:me-[-110px]"
                                         style={{
@@ -129,7 +129,7 @@ const RoadmapLine = () => {
                                     ></div>
                                 </div>
                             ) : (
-                                <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-start relative z-[-1]">
+                                <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-start relative z-[-1]">
                                     <div
                                         className="w-20 md:w-60 h-60 rounded-l-full border-[8px]  md:border-[12px] my-[-22px] ms-[-50px] md:ms-[-110px]"
                                         style={{
@@ -147,7 +147,7 @@ const RoadmapLine = () => {
                 ((tech.length + 1) / 2) % 2 !== 0 ? (
 
                     <div className="mt-[-32px]">
-                        <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
+                        <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <div>
                                 <div
                                     className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]    "
@@ -167,7 +167,7 @@ const RoadmapLine = () => {
                                 }}
                             ></div>
                         </div>
-                        <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
+                        <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <img
                                 src="/src/assets/image/cup.png"
                                 className="absolute right-[-50px] top-[-180px]"
@@ -177,7 +177,7 @@ const RoadmapLine = () => {
                     </div>
                 ) : (
                     <div className="mt-[-32px]">
-                        <div className="w-[200px] md:w-[400px] xl:w-[700px] flex  justify-center  items-center relative">
+                        <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex  justify-center  items-center relative">
                             <div>
                                 <div
                                     className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px]    "
@@ -197,7 +197,7 @@ const RoadmapLine = () => {
                                 }}
                             ></div>
                         </div>
-                        <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
+                        <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <img
                                 src="/src/assets/image/cup.png"
                                 className="absolute left-[-50px] top-[-152px]"
@@ -208,7 +208,7 @@ const RoadmapLine = () => {
                 )
             ) : (tech.length / 2) % 2 !== 0 ? (
                 <div className="mt-[-32px]">
-                    <div className="w-[200px] md:w-[400px] xl:w-[700px] flex  justify-center  items-center relative">
+                    <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex  justify-center  items-center relative">
                         <div>
                             <div
                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px]   "
@@ -222,16 +222,16 @@ const RoadmapLine = () => {
                             ></div>
                         </div>
                     </div>
-                    <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-end relative z-[-1]">
+                    <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-end relative z-[-1]">
                         <div
                             className="w-20 md:w-60 h-60 rounded-r-full border-[8px]  md:border-[12px] my-[10px] me-[-50px] md:me-[-110px]"
                             style={{
-                                borderColor: "#e6cf00",
+                                borderColor: "#e6cf00ff",
                                 borderLeftColor: "transparent",
                             }}
                         ></div>
                     </div>
-                    <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
+                    <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
                             src="/src/assets/image/cup.png"
                             className="absolute right-[20px] top-[-182px]"
@@ -241,7 +241,7 @@ const RoadmapLine = () => {
                 </div>
             ) : (
                 <div className="mt-[-32px]">
-                    <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
+                    <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <div>
                             <div
                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]   "
@@ -255,7 +255,7 @@ const RoadmapLine = () => {
                             ></div>
                         </div>
                     </div>
-                    <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-start relative z-[-1]">
+                    <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-start relative z-[-1]">
                         <div
                             className="w-20 md:w-60 h-60 rounded-l-full border-[8px]  md:border-[12px] my-[12px] ms-[-50px] md:ms-[-110px]"
                             style={{
@@ -264,7 +264,7 @@ const RoadmapLine = () => {
                             }}
                         ></div>
                     </div>
-                    <div className="w-[200px] md:w-[400px] xl:w-[700px] flex justify-center  items-center relative">
+                    <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
                             src="/src/assets/image/cup.png"
                             className="absolute left-[20px] top-[-150px]"

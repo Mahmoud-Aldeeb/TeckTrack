@@ -33,7 +33,7 @@ const RoadmapPage = () => {
                         title: item.categoryName,
                         desc: item.description,
                         img: item.imageUrl || '/src/assets/image/software.webp',
-                    }));
+                    })).reverse();
                     setTracks(formattedTracks);
                 } else {
                     throw new Error('Unexpected API response');
@@ -52,7 +52,6 @@ const RoadmapPage = () => {
         fetchTracks();
     }, []);
 
-    console.log(tracks);
     if (error) {
         return <ErrorMessage message={error} />;
     }
@@ -72,7 +71,7 @@ const RoadmapPage = () => {
             <div className="min-h-screen bg-white pt-16 sm:pt-20 flex flex-col items-center">
 
 
-                <section className="w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16 text-center">
+                <section className="w-full max-w-4xl px-4 sm:px-6 lg:px-8 my-10 sm:my-12 lg:my-15 text-center">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-5 lg:mb-6 leading-tight">
                         Your Developer Growth Roadmap
                     </h1>
@@ -83,7 +82,7 @@ const RoadmapPage = () => {
                 </section>
 
 
-                <section className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
+                <section className="w-full  px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
                     <div className="
                         grid 
                         grid-cols-1 
@@ -96,7 +95,7 @@ const RoadmapPage = () => {
                         place-items-center
                         w-full
                     ">
-                        {tracks.map((track, index) => (
+                        {tracks.map((track) => (
                             <Link
                                 key={track.categoryId}
                                 to={`/roadmap/${track.categoryId}`}

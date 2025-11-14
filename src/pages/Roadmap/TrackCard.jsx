@@ -23,6 +23,7 @@ const TrackCard = ({ title, desc, img, index }) => {
             xl:h-[500px]
             transition-all duration-300
             hover:shadow-2xl
+            mx-auto
         `}>
 
             <div className="absolute inset-0">
@@ -43,14 +44,15 @@ const TrackCard = ({ title, desc, img, index }) => {
                 <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold mb-2 tracking-tight leading-tight">
                     {title}
                 </h3>
-
-
                 <p className="text-xs xs:text-sm sm:text-base md:text-lg mb-4 opacity-90 line-clamp-3 xs:line-clamp-4 sm:line-clamp-5 leading-relaxed">
                     {desc}
                 </p>
 
+                
+
 
                 <div className="self-end">
+                    
                     <Btn
                         url={`roadmap/${index}`}
                         content="View Details"

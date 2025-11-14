@@ -153,7 +153,6 @@
 // src/pages/TrackListPage.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
 import { useApi } from "../../../context/ApiContext";
@@ -162,6 +161,7 @@ export default function SubTrackDetails() {
   const { categoryId, subCategoryId } = useParams(); // نستخدم الـ ID مباشرة
   const navigate = useNavigate();
   const { getSubCategoriesId, getTracks } = useApi();
+  const [categoryName, setCategoryName] = useState("");
 
   const [subCategory, setSubCategory] = useState(null);
   const [tracks, setTracks] = useState([]);
@@ -221,41 +221,70 @@ export default function SubTrackDetails() {
     fetchData();
   }, [categoryId, subCategoryId]);
 
+  useEffect(() => {
+    const getCategoryName = async () => {
+      try {
+        const res = await fetch(`http://techtrack.runasp.net/api/Category/${categoryId}`);
+        const data = await res.json();
+        if (data && data.data && data.data.categoryName) {
+          setCategoryName(data.data.categoryName);
+        }
+      } catch (error) {
+        console.error("Error fetching category:", error);
+      }
+    };
+  
+    if (categoryId) getCategoryName();
+  }, [categoryId]);
+
+
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-6">
+    <div className="min-h-screen px-3 bg-white pt-16 sm:pt-20 flex flex-col items-center">
       {/* Header */}
-      <div className="max-w-4xl mx-auto text-center mt-8">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-6">
-          {subCategory.subCategoryName}
-        </h1>
-        <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-          {subCategory.description}
-        </p>
-        <div className="w-40 h-1 bg-black mx-auto mt-10"></div>
-      </div>
-
+      <section className="w-full mx-auto max-w-4xl px-2 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-15 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-5 lg:mb-6 leading-tight">
+            {subCategory.subCategoryName}
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-3xl mx-auto">
+            {subCategory.description}
+          </p>
+          <div className="flex gap-2 justify-center items-center pb-2">
+            <Link to={"/roadmap/"} className="text-[12px] md:text-[15px] text-gray-600">
+              Roadmaps
+            </Link>
+            /
+            <Link to={`/roadmap/${categoryId}`} className="text-[12px] md:text-[15px] text-gray-600">
+              {categoryName}
+            </Link>
+            /
+            <Link to={`/roadmap/${categoryId}/${subCategoryId}`} className="text-[12px] md:text-[15px]">
+              {subCategory.subCategoryName}
+            </Link>
+          </div>
+          <div className="w-2xs md:w-lg h-px bg-black  mx-auto"></div>
+      </section>
       {/* Tracks Grid */}
       <div className="max-w-7xl mx-auto mt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {tracks.map((track) => (
             <Link
               key={track.trackId}
-              to={`/trackdetails/${categoryId}/${subCategoryId}/${track.trackId}`}
+              to={`/roadmap/${categoryId}/${subCategoryId}/${track.trackId}`}
               className="group block bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-4 border border-gray-100"
             >
-              <div className="h-64 bg-gradient-to-br from-blue-500 to-indigo-600 relative overflow-hidden">
+              <div className="h-64 bg-gradient-to-br from-blue-500 to-indigo-700 relative overflow-hidden">
                 <div className="absolute inset-0 bg-black opacity-20"></div>
                 <div className="absolute bottom-6 left-6 text-white">
-                  <h3 className="text-3xl font-bold drop-shadow-lg">
+                  <h3 className="text-2xl xl:text-3xl font-bold drop-shadow-lg">
                     {track.trackName}
                   </h3>
                 </div>
               </div>
 
-              <div className="p-8">
+              <div className="p-5 xl:p-8 relative">
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
                   {track.description || "No description available."}
                 </p>
