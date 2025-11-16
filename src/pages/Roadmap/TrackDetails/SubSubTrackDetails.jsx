@@ -113,7 +113,6 @@ export default function SubSubTrackDetails() {
   const [track, setTrack] = useState(null);
   const [technologies, setTechnologies] = useState([]);
   const [activeTech, setActiveTech] = useState(null);
-
   const [roadmap, setRoadmap] = useState(null);
   const [loadingRoadmap, setLoadingRoadmap] = useState(true);
   const [errorRoadmap, setErrorRoadmap] = useState(null);
@@ -292,7 +291,7 @@ export default function SubSubTrackDetails() {
         technologyId={activeTech?.technologyId}
         loading={loadingRoadmap}
         error={errorRoadmap}
-        displayTitle={activeTech?.name || "Roadmap"}
+        displayTitle={activeTech?.technologyName || "Roadmap"}
       />
 
       {/* ===== Questions Section ===== */}

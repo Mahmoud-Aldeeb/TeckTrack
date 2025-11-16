@@ -20,27 +20,14 @@ const RoadmapLine = ({displayTitle , error, loading, technologyId}) => {
         gettech();
     }, [technologyId]);
 
-    const tech = [
-        "HTML5",
-        "CSS3",
-        "JavaScript",
-        "React",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Python",
-        "Django",
-        "Docker",
-    ];
-
     const colors = [
         "#FF8F5F",
-        "#5FACFF",
-        "#9747FF",
+        "#ffb555",
         "#3fb91a",
-        "#ff5f5f",
-        "#53c1e2",
-        "#808080",
+        "#1ab991",
+        "#1a5fb9",
+        "#441ab9",
+        "#b91a57",
     ];
     if(loading){
         return(
