@@ -138,21 +138,13 @@ export default function SubSubTrackDetails() {
     const fetchTechnologiesForTrack = async () => {
       try {
 
-        // const res = await axios.get(`${baseUrl}/Technology`);
         const res = await getTechnologies();
         const allTech = res.data.data || res.data;
-
-
-
         const trackTechnologies = allTech.filter(tech => {
 
           return tech.trackId === parseInt(trackId);
         });
-
-
         setTechnologies(trackTechnologies);
-
-
         // Set first technology as active
         if (trackTechnologies.length > 0) {
           setActiveTech(trackTechnologies[0]);
@@ -192,6 +184,7 @@ export default function SubSubTrackDetails() {
     };
     fetchRoadmap();
   }, [subCategoryId]);
+
   const [categoryName, setCategoryName] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
 
@@ -225,7 +218,6 @@ export default function SubSubTrackDetails() {
 
     if (subCategoryId) getSubCategoryId();
   }, [subCategoryId]);
-
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-light to-white text-text flex flex-col">
@@ -297,7 +289,7 @@ export default function SubSubTrackDetails() {
 
       {/* ===== Roadmap Section ===== */}
       <RoadmapSection
-        roadmap={roadmap}
+        technologyId={activeTech?.technologyId}
         loading={loadingRoadmap}
         error={errorRoadmap}
         displayTitle={activeTech?.name || "Roadmap"}

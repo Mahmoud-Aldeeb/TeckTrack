@@ -213,7 +213,6 @@ export default Card;
 //           return tech.companyId === parseInt(companyId);
 //         });
 //         setTechnology(Technologies);
-//         console.log("Filtered Technologies:", Technologies);
 //       } catch (err) {
 //         setError("Failed to load companies. Please try again.");
 //       } finally {
