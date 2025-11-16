@@ -103,7 +103,7 @@ import VideoWithModal from "./VideoModal";
 import RoadmapSection from "./RoadmapLine";
 import QuestionsList from "../TrackDetails/QuestionsList/QuestionsList";
 import { useApi } from "../../../context/ApiContext";
-import { a } from "framer-motion/client";
+
 
 export default function SubSubTrackDetails() {
   const { trackId, categoryId, subCategoryId } = useParams();
@@ -137,13 +137,13 @@ export default function SubSubTrackDetails() {
   useEffect(() => {
     const fetchTechnologiesForTrack = async () => {
       try {
-        // نجيب كل الـ Technologies
+
         // const res = await axios.get(`${baseUrl}/Technology`);
         const res = await getTechnologies();
         const allTech = res.data.data || res.data;
 
 
-        // نفلتر علشان نجيب الـ Technologies اللي تخص التراك الحالي
+
         const trackTechnologies = allTech.filter(tech => {
 
           return tech.trackId === parseInt(trackId);
@@ -196,35 +196,35 @@ export default function SubSubTrackDetails() {
   const [subCategoryName, setSubCategoryName] = useState("");
 
   useEffect(() => {
-      const getCategoryName = async () => {
-        try {
-          const res = await fetch(`http://techtrack.runasp.net/api/Category/${categoryId}`);
-          const data = await res.json();
-          if (data && data.data && data.data.categoryName) {
-            setCategoryName(data.data.categoryName);
-          }
-        } catch (error) {
-          console.error("Error fetching category:", error);
+    const getCategoryName = async () => {
+      try {
+        const res = await fetch(`http://techtrack.runasp.net/api/Category/${categoryId}`);
+        const data = await res.json();
+        if (data && data.data && data.data.categoryName) {
+          setCategoryName(data.data.categoryName);
         }
-      };
-    
-      if (categoryId) getCategoryName();
-    }, [categoryId]);
+      } catch (error) {
+        console.error("Error fetching category:", error);
+      }
+    };
+
+    if (categoryId) getCategoryName();
+  }, [categoryId]);
   useEffect(() => {
-      const getSubCategoryId = async () => {
-        try {
-          const res = await fetch(`http://techtrack.runasp.net/api/SubCategory/${subCategoryId}`);
-          const data = await res.json();
-          if (data && data.data && data.data.subCategoryName) {
-            setSubCategoryName(data.data.subCategoryName);
-          }
-        } catch (error) {
-          console.error("Error fetching subCategoryName:", error);
+    const getSubCategoryId = async () => {
+      try {
+        const res = await fetch(`http://techtrack.runasp.net/api/SubCategory/${subCategoryId}`);
+        const data = await res.json();
+        if (data && data.data && data.data.subCategoryName) {
+          setSubCategoryName(data.data.subCategoryName);
         }
-      };
-    
-      if (subCategoryId) getSubCategoryId();
-    }, [subCategoryId]);
+      } catch (error) {
+        console.error("Error fetching subCategoryName:", error);
+      }
+    };
+
+    if (subCategoryId) getSubCategoryId();
+  }, [subCategoryId]);
 
 
   return (
@@ -252,7 +252,7 @@ export default function SubSubTrackDetails() {
               </Link>
             </div>
             <div className="flex gap-2 justify-start items-center">
-              
+
               /
               <Link to={`/roadmap/${categoryId}/${subCategoryId}/${subCategoryId}`} className="text-[12px] md:text-[15px] text-secondary">
                 {track?.trackName || "Track Details"}
@@ -278,12 +278,12 @@ export default function SubSubTrackDetails() {
         </div>
 
         {/* ===== Active Technology Content ===== */}
-        {activeTech && (
+        {/* {activeTech && (
           <div className="max-w-5xl mx-auto p-6 bg-white rounded-xl shadow-md">
             <h2 className="text-2xl font-bold mb-2">{activeTech.name}</h2>
             <p className=" line-clamp-1">{activeTech.description}</p>
           </div>
-        )}
+        )} */}
 
         {/* ===== Video Section ===== */}
         <VideoWithModal

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useMemo } from 'react';
+import { useApi } from "../../../../context/ApiContext";
 import Loader from '../../../../componants/ui/Loader';
 import ErrorMessage from '../../../../componants/ui/Error';
-import { useApi } from "../../../../context/ApiContext";
-
-
 
 const QuestionsList = ({
     technologyId,
@@ -13,7 +10,6 @@ const QuestionsList = ({
 }) => {
     const { getInterviewQuestions, getTechnologiesId } = useApi();
     const [questions, setQuestions] = useState([]);
-    const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [technology, setTechnology] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -21,15 +17,9 @@ const QuestionsList = ({
     const [selectedDifficulty, setSelectedDifficulty] = useState('all');
 
 
-    const difficultyLevels = [...new Set(questions.map(q => q.difficultyLevel))];
-
-
-
-
     useEffect(() => {
         const fetchTechnologies = async () => {
             try {
-                // const res = await axios.get(`http://techtrack.runasp.net/api/Technology/${technologyId}`);
                 const res = await getTechnologiesId(technologyId);
                 const technologyData = res.data.data || res.data;
                 setTechnology(technologyData);
@@ -37,25 +27,22 @@ const QuestionsList = ({
                 console.error("Error fetching track:", err);
             }
         };
-        fetchTechnologies();
-    }, [technologyId]);
+        if (technologyId) fetchTechnologies();
+    }, [technologyId, getTechnologiesId]);
+
 
     useEffect(() => {
         const fetchQuestionsForTrack = async () => {
             try {
                 setLoading(true);
-                // const response = await axios.get(apiUrl);
                 const response = await getInterviewQuestions();
-
                 let questionsData = response.data;
-                const TechnologiesQuestions = questionsData.filter(tech => {
-                    return tech.technologyId === parseInt(technologyId);
-                });
 
-
+                const TechnologiesQuestions = questionsData.filter(tech =>
+                    tech.technologyId === parseInt(technologyId)
+                );
 
                 setQuestions(TechnologiesQuestions);
-                setFilteredQuestions(TechnologiesQuestions);
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching questions:", err);
@@ -64,13 +51,12 @@ const QuestionsList = ({
             }
         };
 
-        fetchQuestionsForTrack();
-    }, [technologyId]);
+        if (technologyId) fetchQuestionsForTrack();
+    }, [technologyId, getInterviewQuestions]);
 
 
-    useEffect(() => {
-        let filtered = filteredQuestions;
-
+    const filteredQuestions = useMemo(() => {
+        let filtered = [...questions];
 
         if (searchTerm) {
             filtered = filtered.filter(question =>
@@ -79,30 +65,23 @@ const QuestionsList = ({
             );
         }
 
-
         if (selectedDifficulty !== 'all') {
             filtered = filtered.filter(question => question.difficultyLevel === selectedDifficulty);
         }
 
-        setFilteredQuestions(filtered);
-    }, [searchTerm, selectedDifficulty, questions]);
+        return filtered;
+    }, [questions, searchTerm, selectedDifficulty]);
+
+    const difficultyLevels = [...new Set(questions.map(q => q.difficultyLevel))];
 
     const handleResetFilters = () => {
         setSearchTerm('');
         setSelectedDifficulty('all');
     };
 
-    if (!technologyId) {
-        return <Loader />;
-    }
-
-    if (loading) {
-        return <Loader />;
-    }
-
-    if (error) {
-        return <ErrorMessage message={error} />;
-    }
+    if (!technologyId) return <Loader />;
+    if (loading) return <Loader />;
+    if (error) return <ErrorMessage message={error} />;
 
     return (
         <div className="w-full max-w-6xl mx-auto p-6">
@@ -156,7 +135,6 @@ const QuestionsList = ({
                         )}
                     </div>
 
-                    {/* Reset Filters Button */}
                     {(searchTerm || selectedDifficulty !== 'all') && (
                         <div className="mt-4 text-center">
                             <button
@@ -171,12 +149,10 @@ const QuestionsList = ({
             )}
 
             {/* Results Count */}
-            <div className="mb-6 flex flex-col gap-3 sm:gap-0 sm:flex-row justify-start sm:justify-between sm:items-center ">
+            <div className="mb-6 flex flex-col gap-3 sm:gap-0 sm:flex-row justify-start sm:justify-between sm:items-center">
                 <p className="text-gray-600">
                     Showing {filteredQuestions.length} of {questions.length} questions
                 </p>
-
-                {/* Quick Stats */}
                 <div className="flex gap-4 text-sm text-gray-500">
                     <span>Technical: {questions.filter(q => q.questionType.toLowerCase() === 'technical').length}</span>
                     <span>Behavioral: {questions.filter(q => q.questionType.toLowerCase() === 'behavioral').length}</span>
@@ -215,30 +191,24 @@ const QuestionsList = ({
     );
 };
 
+
 const QuestionCard = ({ question, index }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const getDifficultyColor = (difficulty) => {
         switch (difficulty?.toLowerCase()) {
-            case 'beginner':
-                return 'bg-green-100 text-green-800 border-green-200';
-            case 'intermediate':
-                return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'advanced':
-                return 'bg-red-100 text-red-800 border-red-200';
-            default:
-                return 'bg-gray-100 text-gray-800 border-gray-200';
+            case 'beginner': return 'bg-green-100 text-green-800 border-green-200';
+            case 'intermediate': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+            case 'advanced': return 'bg-red-100 text-red-800 border-red-200';
+            default: return 'bg-gray-100 text-gray-800 border-gray-200';
         }
     };
 
     const getTypeColor = (type) => {
         switch (type?.toLowerCase()) {
-            case 'technical':
-                return 'bg-blue-100 text-blue-800 border-blue-200';
-            case 'behavioral':
-                return 'bg-purple-100 text-purple-800 border-purple-200';
-            default:
-                return 'bg-gray-100 text-gray-800 border-gray-200';
+            case 'technical': return 'bg-blue-100 text-blue-800 border-blue-200';
+            case 'behavioral': return 'bg-purple-100 text-purple-800 border-purple-200';
+            default: return 'bg-gray-100 text-gray-800 border-gray-200';
         }
     };
 
@@ -261,14 +231,13 @@ const QuestionCard = ({ question, index }) => {
                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getTypeColor(question.questionType)}`}>
                                     {question.questionType}
                                 </span>
-
                             </div>
                         </div>
                     </div>
 
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="flex-shrink-0   md:ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium cursor-pointer"
+                        className="flex-shrink-0 md:ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium cursor-pointer"
                     >
                         {isExpanded ? 'Hide Answer' : 'Show Answer'}
                     </button>
@@ -283,8 +252,6 @@ const QuestionCard = ({ question, index }) => {
                         <p className="text-gray-700 leading-relaxed text-base pl-5">
                             {question.sampleAnswer}
                         </p>
-
-
                     </div>
                 )}
             </div>

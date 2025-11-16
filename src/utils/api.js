@@ -11,6 +11,8 @@ const api = axios.create({
 export const apiService = {
     // Companies
     getCompanies: () => api.get('/Company'),
+    getCompanyById: (companyId) => api.get(`/Company/${companyId}`),
+    getCompanyTechnologies: () => api.get(`/CompanyTechnology`),
 
     // Roadmap
     getCategories: () => api.get('/Category'),
@@ -24,4 +26,6 @@ export const apiService = {
     getTechnologies: () => api.get(`/Technology`),
     getTechnologiesId: (technologyId) => api.get(`/Technology/${technologyId}`),
     getInterviewQuestions: () => api.get(`/InterviewQuestion`),
+
+
 };

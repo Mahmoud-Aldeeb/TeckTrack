@@ -82,16 +82,19 @@ const RoadmapPage = () => {
                 </section>
 
 
-                <section className="w-full  px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
+                <section className="w-full  px-4 sm:px-6 lg:px-8  pb-16 sm:pb-20">
                     <div className="
                         grid 
                         grid-cols-1 
                         sm:grid-cols-2 
                         lg:grid-cols-2 
                         xl:grid-cols-2
+                        xl:w-10/12
+                        mx-auto
                         gap-6 
                         sm:gap-8 
                         lg:gap-10
+                        xl:gap-12
                         place-items-center
                         w-full
                     ">

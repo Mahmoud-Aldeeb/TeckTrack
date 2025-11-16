@@ -3,11 +3,6 @@ import React from 'react';
 import { Btn } from '../../componants/ui/Btn';
 
 const TrackCard = ({ title, desc, img, index }) => {
-    // const slug = title
-    //     .toLowerCase()
-    //     .replace(/ & /g, '-')
-    //     .replace(/ /g, '-').replace(/[^\w-]+/g, '-');
-
     return (
         <div className={`
             relative overflow-hidden rounded-2xl 
@@ -21,6 +16,7 @@ const TrackCard = ({ title, desc, img, index }) => {
             lg:w-[400px]
             md:w-[300px]
             xl:h-[500px]
+            xl:w-[400px]
             transition-all duration-300
             hover:shadow-2xl
             mx-auto
@@ -48,11 +44,11 @@ const TrackCard = ({ title, desc, img, index }) => {
                     {desc}
                 </p>
 
-                
+
 
 
                 <div className="self-end">
-                    
+
                     <Btn
                         url={`roadmap/${index}`}
                         content="View Details"
