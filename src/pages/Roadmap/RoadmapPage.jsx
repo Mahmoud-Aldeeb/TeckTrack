@@ -1,6 +1,5 @@
 import React from "react";
 import TrackCard from "../Roadmap/TrackCard";
-import { Helmet } from "react-helmet";
 import Loader from "../../componants/ui/Loader";
 import ErrorMessage from "../../componants/ui/Error";
 
@@ -32,13 +31,7 @@ const RoadmapPage = () => {
   return (
     <>
 
-      <Helmet>
-        <title>Tracks - TechTrack</title>
-        <meta
-          name="description"
-          content="Discover the roadmap to learning every specialization in programming and technology."
-        />
-      </Helmet>
+
       <div className="min-h-screen bg-white pt-16 sm:pt-20 flex flex-col items-center">
 
 

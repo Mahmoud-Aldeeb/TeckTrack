@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
-import Filter from '../companies/Filter';
+import Filter from './Filter';
 import Card from '../../componants/ui/Card';
 import { useApi } from '../../context/ApiContext';
 import Loader from '../../componants/ui/Loader';
