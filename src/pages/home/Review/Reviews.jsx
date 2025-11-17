@@ -2,7 +2,7 @@
 // // import axios from "axios";
 // import { motion, useAnimation } from "framer-motion";
 // import ReviewCard from "./reviewCard";
-// import Info from "../../../componants/ui/Info";
+// import Info from "../../../Components/ui/Info";
 // import { useTranslation } from "react-i18next";
 
 // function Reviews() {
@@ -152,10 +152,10 @@
 // import axios from "axios";
 // import { motion, useAnimation } from "framer-motion";
 // import ReviewCard from "./ReviewCard";
-// import Info from "../../../componants/ui/Info";
+// import Info from "../../../Components/ui/Info";
 // import { useTranslation } from "react-i18next";
-// import Loader from "../../../componants/ui/Loader";
-// import ErrorMessage from "../../../componants/ui/Error";
+// import Loader from "../../../Components/ui/Loader";
+// import ErrorMessage from "../../../Components/ui/Error";
 
 // function Reviews() {
 //   const [reviews, setReviews] = useState([]);
@@ -174,7 +174,6 @@
 //       try {
 //         setLoading(true);
 
-//         const response = await axios.get("http://techtrack.runasp.net/api/UserTechnologyReview");
 
 
 //         const formattedReviews = response.data.map(review => ({
@@ -276,7 +275,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion, useAnimation } from "framer-motion";
-import ReviewCard from "./reviewCard";
+import ReviewCard from "./ReviewCard";
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
