@@ -2,7 +2,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
-import Filter from './Filter';
 import Card from '../../componants/ui/Card';
 import { useApi } from '../../context/ApiContext';
 import Loader from '../../componants/ui/Loader';
@@ -61,7 +60,6 @@ const Companies = () => {
       </div>
 
       <div className="mt-10 mb-20 flex flex-col md:flex-row gap-6">
-        <Filter />
 
         <div className="flex-1">
           <AnimatePresence mode="wait">
@@ -69,7 +67,7 @@ const Companies = () => {
               key={currentPage + searchTerm}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 gap-y-8 place-items-center"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-8 place-items-center"
             >
               {visibleCompanies.length === 0 ? (
                 <p className="col-span-full text-center text-gray-500">لا توجد شركات</p>

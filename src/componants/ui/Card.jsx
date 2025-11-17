@@ -8,7 +8,7 @@ const Card = ({ company, companyTechs = [] }) => {
     <a href={company.websiteUrl} target="_blank" rel="noopener noreferrer" className="block">
       <div className={`
         border-2 border-[#042B95] shadow-2xl rounded-3xl py-8 px-3 xl:p-8
-        h-[350px] flex flex-col w-full md:w-[250px] xl:w-[286px] 2xl:w-[350px]
+        h-[350px] flex flex-col w-[300px] md:w-[300px] xl:w-[286px] 2xl:w-[350px]
         justify-center items-center hover:shadow-xl transition-shadow duration-300
       `} style={{ backgroundColor: '#fff' }}>
 
