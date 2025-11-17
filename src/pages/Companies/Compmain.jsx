@@ -10,7 +10,7 @@ import ErrorMessage from '../../componants/ui/Error';
 const Companies = () => {
   const { companies = [], CompanyTechnologies = [], loading, error } = useApi();
 
-  const cardsPerPage = 6;
+  const cardsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
 
