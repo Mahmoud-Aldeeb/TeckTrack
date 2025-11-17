@@ -1,4 +1,4 @@
-
+// src/components/RoadmapLine/RoadmapLine.jsx
 import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
 import { useApi } from "../../../context/ApiContext";
@@ -6,13 +6,12 @@ import { useApi } from "../../../context/ApiContext";
 const RoadmapLine = ({ displayTitle, technologyId }) => {
     const { roadmaps, loading, error } = useApi();
 
-
+    // ابحث عن الـ Roadmap
     const roadmap = roadmaps.find(r => r.technologyId === parseInt(technologyId));
     const techSteps = roadmap?.steps || [];
 
     const colors = ["#FF8F5F", "#ffb555", "#3fb91a", "#1ab991", "#1a5fb9", "#441ab9", "#b91a57"];
     const getColor = (i) => colors[i % colors.length];
-
 
     if (loading) return <Loader />;
     if (error) return <ErrorMessage message={error} />;

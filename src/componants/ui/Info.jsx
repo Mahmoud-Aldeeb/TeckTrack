@@ -1,7 +1,6 @@
 import React from "react";
 import { Btn } from "./Btn";
 
-
 const Info = ({
   head,
   title,
@@ -23,12 +22,12 @@ const Info = ({
     >
       <p
         className={`bg-primary-light mb-4 w-fit px-5 text-text-primary font-medium rounded-4xl h-8 lg:h-10 flex items-center justify-center text-[12px] lg:text-[16px] line-[150%] text-[#031C63]  ${isArabic
-          ? textstart
-            ? "me-auto"
-            : "mx-auto"
-          : textstart
-            ? ""
-            : "mx-auto"
+            ? textstart
+              ? "me-auto"
+              : "mx-auto"
+            : textstart
+              ? ""
+              : "mx-auto"
           }`}
       >
         {head}
@@ -36,12 +35,12 @@ const Info = ({
 
       <div
         className={`flex gap-5 flex-col ${isArabic
-          ? textstart
-            ? "text-start"
-            : "text-center"
-          : textstart
-            ? ""
-            : "text-center"
+            ? textstart
+              ? "text-start"
+              : "text-center"
+            : textstart
+              ? ""
+              : "text-center"
           }`}
       >
         <h1

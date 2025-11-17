@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-
 export const Btn = ({ url = "", content, arrow = true, Px = "6" }) => {
   return (
     <Link

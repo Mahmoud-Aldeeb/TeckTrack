@@ -1,4 +1,4 @@
-// Companies.jsx
+// src/pages/Companies/Companies.jsx
 import React, { useState, useMemo } from 'react';
 import { Search } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,7 +9,7 @@ import Loader from '../../componants/ui/Loader';
 import ErrorMessage from '../../componants/ui/Error';
 
 const Companies = () => {
-  const { companies, CompanyTechnologies, loading, error } = useApi();
+  const { companies = [], CompanyTechnologies = [], loading, error } = useApi();
 
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +46,10 @@ const Companies = () => {
           placeholder="Search for a company"
           className="flex-1 outline-none text-gray-700 text-sm sm:text-base"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
           onKeyPress={(e) => e.key === 'Enter' && setCurrentPage(1)}
         />
         <button
@@ -68,19 +71,23 @@ const Companies = () => {
               animate={{ opacity: 1 }}
               className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 gap-y-8 place-items-center"
             >
-              {visibleCompanies.map((company, i) => (
-                <motion.div
-                  key={company.companyId}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Card
-                    company={company}
-                    companyTechs={getCompanyTechs(company.companyId)}
-                  />
-                </motion.div>
-              ))}
+              {visibleCompanies.length === 0 ? (
+                <p className="col-span-full text-center text-gray-500">لا توجد شركات</p>
+              ) : (
+                visibleCompanies.map((company, i) => (
+                  <motion.div
+                    key={company.companyId}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <Card
+                      company={company}
+                      companyTechs={getCompanyTechs(company.companyId)}
+                    />
+                  </motion.div>
+                ))
+              )}
             </motion.div>
           </AnimatePresence>
 

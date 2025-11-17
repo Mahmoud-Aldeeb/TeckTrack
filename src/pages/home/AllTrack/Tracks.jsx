@@ -13,7 +13,9 @@ const Tracks = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-4 md:gap-8 lg:gap-16 items-center justify-center container mx-auto  mb-10 ">
       <Circles />
+
       <Info head={head} title={title} paragraph={paragraph} btn={btn} Width="full" url="roadmap" />
+
     </div>
   );
 };

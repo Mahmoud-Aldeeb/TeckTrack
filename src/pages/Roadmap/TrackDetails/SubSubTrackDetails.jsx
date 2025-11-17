@@ -8,7 +8,7 @@
 
 
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import VideoWithModal from "./VideoModal";
 import RoadmapSection from "./RoadmapLine";
@@ -40,7 +40,7 @@ export default function SubSubTrackDetails() {
   }
 
   const track = tracks.find(t => t.trackId === trkId);
-
+  if (!track) return <ErrorMessage message="Track not found" />;
 
 
   const category = categories.find(c => c.categoryId === catId);
