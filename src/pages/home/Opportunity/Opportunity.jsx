@@ -10,10 +10,10 @@ const Opportunity = () => {
   const title = t("opportunity.title");
   const paragraph = t("opportunity.paragraph");
   const btn = t("opportunity.btn");
-  
+
   return (
     <div className=" flex flex-col md:flex-row gap-4 md:gap-8 lg:gap-16 items-center justify-center container mx-auto mt-10 sm:mt-32 mb-10">
-      <Info head={head} title={title} paragraph={paragraph} btn={btn} />
+      <Info head={head} title={title} paragraph={paragraph} btn={btn} url="companies" />
       <AnimationCard />
     </div>
   );

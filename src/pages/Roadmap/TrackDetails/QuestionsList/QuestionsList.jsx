@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
+
+import { useState, useMemo } from 'react';
 import { useApi } from "../../../../context/ApiContext";
 import Loader from '../../../../componants/ui/Loader';
 import ErrorMessage from '../../../../componants/ui/Error';
@@ -8,65 +9,31 @@ const QuestionsList = ({
     showSearch = true,
     showFilters = true
 }) => {
-    const { getInterviewQuestions, getTechnologiesId } = useApi();
-    const [questions, setQuestions] = useState([]);
-    const [technology, setTechnology] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { interviewQuestions, allTechnologies, loading, error } = useApi();
+
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('all');
 
 
-    useEffect(() => {
-        const fetchTechnologies = async () => {
-            try {
-                const res = await getTechnologiesId(technologyId);
-                const technologyData = res.data.data || res.data;
-                setTechnology(technologyData);
-            } catch (err) {
-                console.error("Error fetching track:", err);
-            }
-        };
-        if (technologyId) fetchTechnologies();
-    }, [technologyId, getTechnologiesId]);
+    const technology = allTechnologies.find(t => t.technologyId === parseInt(technologyId));
 
-
-    useEffect(() => {
-        const fetchQuestionsForTrack = async () => {
-            try {
-                setLoading(true);
-                const response = await getInterviewQuestions();
-                let questionsData = response.data;
-
-                const TechnologiesQuestions = questionsData.filter(tech =>
-                    tech.technologyId === parseInt(technologyId)
-                );
-
-                setQuestions(TechnologiesQuestions);
-                setLoading(false);
-            } catch (err) {
-                console.error("Error fetching questions:", err);
-                setError("Failed to load questions. Please try again later.");
-                setLoading(false);
-            }
-        };
-
-        if (technologyId) fetchQuestionsForTrack();
-    }, [technologyId, getInterviewQuestions]);
+    const questions = interviewQuestions
+        .filter(q => q.technologyId === parseInt(technologyId))
+        .filter(q => q.questionText && q.questionText !== "string");
 
 
     const filteredQuestions = useMemo(() => {
         let filtered = [...questions];
 
         if (searchTerm) {
-            filtered = filtered.filter(question =>
-                question.questionText?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                question.sampleAnswer?.toLowerCase().includes(searchTerm.toLowerCase())
+            filtered = filtered.filter(q =>
+                q.questionText?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                q.sampleAnswer?.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
         if (selectedDifficulty !== 'all') {
-            filtered = filtered.filter(question => question.difficultyLevel === selectedDifficulty);
+            filtered = filtered.filter(q => q.difficultyLevel === selectedDifficulty);
         }
 
         return filtered;
@@ -79,7 +46,7 @@ const QuestionsList = ({
         setSelectedDifficulty('all');
     };
 
-    if (!technologyId) return <Loader />;
+    if (!technologyId || !technology) return <ErrorMessage message="Technology not found" />;
     if (loading) return <Loader />;
     if (error) return <ErrorMessage message={error} />;
 
@@ -190,7 +157,6 @@ const QuestionsList = ({
         </div>
     );
 };
-
 
 const QuestionCard = ({ question, index }) => {
     const [isExpanded, setIsExpanded] = useState(false);

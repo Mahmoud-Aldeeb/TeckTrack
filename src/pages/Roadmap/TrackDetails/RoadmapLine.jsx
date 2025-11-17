@@ -1,51 +1,54 @@
-const RoadmapLine = () => {
 
-    const tech = [
-        "HTML5",
-        "CSS3",
-        "JavaScript",
-        "React",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
+import Loader from "../../../componants/ui/Loader";
+import ErrorMessage from "../../../componants/ui/Error";
+import { useApi } from "../../../context/ApiContext";
 
-        "Python",
-        "Django",
-        "Docker",
+const RoadmapLine = ({ displayTitle, technologyId }) => {
+    const { roadmaps, loading, error } = useApi();
 
-    ];
-    const colors = [
-        "#FF8F5F",
-        "#5FACFF",
-        "#9747FF",
-        "#3fb91a",
-        "#ff5f5f",
-        "#53c1e2",
-        "#808080",
-    ];
+
+    const roadmap = roadmaps.find(r => r.technologyId === parseInt(technologyId));
+    const techSteps = roadmap?.steps || [];
+
+    const colors = ["#FF8F5F", "#ffb555", "#3fb91a", "#1ab991", "#1a5fb9", "#441ab9", "#b91a57"];
+    const getColor = (i) => colors[i % colors.length];
+
+
+    if (loading) return <Loader />;
+    if (error) return <ErrorMessage message={error} />;
+    if (techSteps.length === 0) {
+        return (
+            <section className="w-full py-20 text-center">
+                <h2 className="text-4xl font-bold text-blue-800 mb-10">{displayTitle}</h2>
+                <p className="text-gray-500">لا توجد خطوات متاحة.</p>
+            </section>
+        );
+    }
 
     return (
         <section className="w-full py-20 flex flex-col items-center ">
-            {Array.from({ length: Math.ceil(tech.length / 2) }).map((_, i) => {
+            <h2 className="text-4xl font-bold text-blue-800 mb-[100px] mt-[-90px]">
+                {displayTitle}
+            </h2>
+            {Array.from({ length: Math.ceil(techSteps.length / 2) }).map((_, i) => {
                 const leftIndex = i * 2;
                 const rightIndex = i * 2 + 1;
                 const isEven = i % 2 === 0;
                 const color = (index) => index % colors.length;
                 return (
-
                     <div key={i}>
                         {/* الخط مع العنصرين */}
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center items-center relative">
                             {isEven ? (
                                 <>
                                     {/* العنصر على اليسار */}
-                                    {tech[leftIndex] && (
+                                    {techSteps[leftIndex] && (
                                         <div>
                                             <div
                                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px] shadow-xl/10 "
                                                 style={{ backgroundColor: colors[color(leftIndex)] }}
                                             >
-                                                {tech[leftIndex]}
+                                                {techSteps[leftIndex]}
                                             </div>
                                             <div
                                                 className="w-8 h-8 rounded-full"
@@ -55,13 +58,13 @@ const RoadmapLine = () => {
                                     )}
 
                                     {/* العنصر على اليمين */}
-                                    {tech[rightIndex] && (
+                                    {techSteps[rightIndex] && (
                                         <div>
                                             <div
                                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px] shadow-xl/10"
                                                 style={{ backgroundColor: colors[color(rightIndex)] }}
                                             >
-                                                {tech[rightIndex]}
+                                                {techSteps[rightIndex]}
                                             </div>
                                             <div
                                                 className="w-8 h-8 rounded-full absolute top-[50%] right-0 transform translate-y-[-50%]"
@@ -73,13 +76,13 @@ const RoadmapLine = () => {
                             ) : (
                                 <>
                                     {/* العنصر على اليمين */}
-                                    {tech[rightIndex] && (
+                                    {techSteps[rightIndex] && (
                                         <div>
                                             <div
                                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px] shadow-xl/10"
                                                 style={{ backgroundColor: colors[color(rightIndex)] }}
                                             >
-                                                {tech[rightIndex]}
+                                                {techSteps[rightIndex]}
                                             </div>
                                             <div
                                                 className="w-8 h-8 rounded-full "
@@ -89,14 +92,14 @@ const RoadmapLine = () => {
                                     )}
 
                                     {/* العنصر على اليسار */}
-                                    {tech[leftIndex] && (
+                                    {techSteps[leftIndex] && (
                                         <div className="">
                                             <div className="w-0 h-1 my-[14px]"></div>
                                             <div
                                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px] shadow-xl/10"
                                                 style={{ backgroundColor: colors[color(leftIndex)] }}
                                             >
-                                                {tech[leftIndex]}
+                                                {techSteps[leftIndex]}
                                             </div>
                                             <div
                                                 className="w-8 h-8 rounded-full absolute top-[50%] right-0 transform translate-y-[-50%]"
@@ -117,7 +120,7 @@ const RoadmapLine = () => {
                         </div>
 
                         {/* نصف دايرة بعد كل صف */}
-                        {i < Math.ceil(tech.length / 2) - 1 &&
+                        {i < Math.ceil(techSteps.length / 2) - 1 &&
                             (isEven ? (
                                 <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-end relative z-[-1]">
                                     <div
@@ -140,12 +143,10 @@ const RoadmapLine = () => {
                                 </div>
                             ))}
                     </div>
-
                 );
             })}
-            {tech.length % 2 !== 0 ? (
-                ((tech.length + 1) / 2) % 2 !== 0 ? (
-
+            {techSteps.length % 2 !== 0 ? (
+                ((techSteps.length + 1) / 2) % 2 !== 0 ? (
                     <div className="mt-[-32px]">
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <div>
@@ -153,7 +154,7 @@ const RoadmapLine = () => {
                                     className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]    "
                                     style={{ backgroundColor: "#e6cf00" }}
                                 >
-                                    {tech[tech.length - 1]}
+                                    {techSteps[techSteps.length - 1]}
                                 </div>
                                 <div
                                     className="w-8 h-8 rounded-full"
@@ -169,7 +170,7 @@ const RoadmapLine = () => {
                         </div>
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <img
-                                src="/src/assets/image/cup.png"
+                                src="/assets/image/cup.png"
                                 className="absolute right-[-50px] top-[-180px]"
                                 alt="Cup Image"
                             />
@@ -183,7 +184,7 @@ const RoadmapLine = () => {
                                     className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px]    "
                                     style={{ backgroundColor: "#e6cf00" }}
                                 >
-                                    {tech[tech.length - 1]}
+                                    {techSteps[techSteps.length - 1]}
                                 </div>
                                 <div
                                     className="w-8 h-8 rounded-full absolute top-[16px] right-[-0px] transform translate-y-[-50%]"
@@ -199,14 +200,14 @@ const RoadmapLine = () => {
                         </div>
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <img
-                                src="/src/assets/image/cup.png"
+                                src="/assets/image/cup.png"
                                 className="absolute left-[-50px] top-[-152px]"
                                 alt="Cup Image"
                             />
                         </div>
                     </div>
                 )
-            ) : (tech.length / 2) % 2 !== 0 ? (
+            ) : (techSteps.length / 2) % 2 !== 0 ? (
                 <div className="mt-[-32px]">
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex  justify-center  items-center relative">
                         <div>
@@ -214,7 +215,7 @@ const RoadmapLine = () => {
                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px]   "
                                 style={{ backgroundColor: "#e6cf00" }}
                             >
-                                {tech[tech.length - 1]}
+                                {techSteps[techSteps.length - 1]}
                             </div>
                             <div
                                 className="w-8 h-8 rounded-full absolute top-[16px] right-[-0px] transform translate-y-[-50%]"
@@ -233,7 +234,7 @@ const RoadmapLine = () => {
                     </div>
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
-                            src="/src/assets/image/cup.png"
+                            src="/assets/image/cup.png"
                             className="absolute right-[20px] top-[-182px]"
                             alt="Cup Image"
                         />
@@ -247,7 +248,7 @@ const RoadmapLine = () => {
                                 className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]   "
                                 style={{ backgroundColor: "#e6cf00" }}
                             >
-                                {tech[tech.length - 1]}
+                                {techSteps[techSteps.length - 1]}
                             </div>
                             <div
                                 className="w-8 h-8 rounded-full absolute left-0"
@@ -266,13 +267,12 @@ const RoadmapLine = () => {
                     </div>
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
-                            src="/src/assets/image/cup.png"
+                            src="/assets/image/cup.png"
                             className="absolute left-[20px] top-[-150px]"
                             alt="Cup Image"
                         />
                     </div>
                 </div>
-
             )}
         </section>
     );

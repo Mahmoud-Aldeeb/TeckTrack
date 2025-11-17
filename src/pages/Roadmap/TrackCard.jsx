@@ -1,8 +1,8 @@
-// src/Roadmap/TrackCard.jsx
 import React from 'react';
 import { Btn } from '../../componants/ui/Btn';
 
-const TrackCard = ({ title, desc, img, index }) => {
+
+const TrackCard = ({ title, desc, img, categoryId }) => {
     return (
         <div className={`
             relative overflow-hidden rounded-2xl 
@@ -26,8 +26,9 @@ const TrackCard = ({ title, desc, img, index }) => {
                 <img
                     src={img}
                     alt={title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
+                    className=" h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    width="1200"
+                    height="600"
                 />
             </div>
 
@@ -50,7 +51,7 @@ const TrackCard = ({ title, desc, img, index }) => {
                 <div className="self-end">
 
                     <Btn
-                        url={`roadmap/${index}`}
+                        url={`roadmap/${categoryId}`}
                         content="View Details"
                         Px="6"
                         className="text-xs xs:text-sm sm:text-base"

@@ -4,8 +4,6 @@ import RoadmapPage from './pages/Roadmap/RoadmapPage';
 import CategoryPage from './pages/Roadmap/TrackDetails/TrackDetails';
 import SubTrackDetails from './pages/Roadmap/TrackDetails/SubTrackDetails';
 import SubSubTrackDetails from './pages/Roadmap/TrackDetails/SubSubTrackDetails';
-// import QuestionsList from './pages/Roadmap/TrackDetails/QuestionsList/QuestionsList';
-// import Reviews from './pages/Reviews/Reviews';
 import Nav from './componants/layout/Nav.jsx';
 import Footer from './componants/layout/Footer.jsx';
 import Companies from './pages/Companies/Compmain.jsx';
@@ -26,7 +24,6 @@ function App() {
 
         <Route path="/companies" element={<Companies />} />
 
-        {/* <Route path='/reviews' element={<Reviews />} /> */}
       </Routes>
       <Footer />
     </Router>
