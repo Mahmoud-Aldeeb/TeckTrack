@@ -11,8 +11,6 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
     const techSteps = roadmap?.steps || [];
 
     const colors = ["#FF8F5F", "#ffb555", "#3fb91a", "#1ab991", "#1a5fb9", "#441ab9", "#b91a57"];
-    const getColor = (i) => colors[i % colors.length];
-
     if (loading) return <Loader />;
     if (error) return <ErrorMessage message={error} />;
     if (techSteps.length === 0) {
@@ -26,7 +24,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
 
     return (
         <section className="w-full py-20 flex flex-col items-center ">
-            <h2 className="text-4xl font-bold text-blue-800 mb-[100px] mt-[-90px]">
+            <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-[100px] mt-[-90px]">
                 {displayTitle}
             </h2>
             {Array.from({ length: Math.ceil(techSteps.length / 2) }).map((_, i) => {
@@ -44,7 +42,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                                     {techSteps[leftIndex] && (
                                         <div>
                                             <div
-                                                className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px] shadow-xl/10 "
+                                                className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-65px] md:top-[-60px] left-[-20px] md:left-[-30px] shadow-xl/10 "
                                                 style={{ backgroundColor: colors[color(leftIndex)] }}
                                             >
                                                 {techSteps[leftIndex]}
@@ -60,7 +58,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                                     {techSteps[rightIndex] && (
                                         <div>
                                             <div
-                                                className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px] shadow-xl/10"
+                                                className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[45px] md:top-[-60px] right-[-20px] md:right-[-30px] shadow-xl/10"
                                                 style={{ backgroundColor: colors[color(rightIndex)] }}
                                             >
                                                 {techSteps[rightIndex]}
@@ -78,7 +76,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                                     {techSteps[rightIndex] && (
                                         <div>
                                             <div
-                                                className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px] shadow-xl/10"
+                                                className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-65px] md:top-[-60px] left-[-20px] md:left-[-30px] shadow-xl/10"
                                                 style={{ backgroundColor: colors[color(rightIndex)] }}
                                             >
                                                 {techSteps[rightIndex]}
@@ -95,7 +93,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                                         <div className="">
                                             <div className="w-0 h-1 my-[14px]"></div>
                                             <div
-                                                className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px] shadow-xl/10"
+                                                className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-amber-50 rounded-2xl w-fit absolute top-[45px] md:top-[-60px] right-[-20px] md:right-[-30px] shadow-xl/10"
                                                 style={{ backgroundColor: colors[color(leftIndex)] }}
                                             >
                                                 {techSteps[leftIndex]}
@@ -150,7 +148,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <div>
                                 <div
-                                    className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]    "
+                                    className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[45px] md:top-[-60px] left-[-20px] md:left-[-30px]    "
                                     style={{ backgroundColor: "#e6cf00" }}
                                 >
                                     {techSteps[techSteps.length - 1]}
@@ -180,7 +178,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex  justify-center  items-center relative">
                             <div>
                                 <div
-                                    className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px]    "
+                                    className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[45px] md:top-[-60px] right-[-20px] md:right-[-30px]    "
                                     style={{ backgroundColor: "#e6cf00" }}
                                 >
                                     {techSteps[techSteps.length - 1]}
@@ -211,7 +209,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex  justify-center  items-center relative">
                         <div>
                             <div
-                                className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] right-[-20px] md:right-[-30px]   "
+                                className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[45px] md:top-[-60px] right-[-20px] md:right-[-30px]   "
                                 style={{ backgroundColor: "#e6cf00" }}
                             >
                                 {techSteps[techSteps.length - 1]}
@@ -234,7 +232,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
                             src="/assets/image/cup.png"
-                            className="absolute right-[20px] top-[-182px]"
+                            className="absolute right-[10px] top-[-152px]"
                             alt="Cup Image"
                         />
                     </div>
@@ -244,7 +242,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <div>
                             <div
-                                className="px-3 py-2 md:px-5 md:py-3 text-md md:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]   "
+                                className="px-3 py-2 md:px-5 md:py-3 text-sm md:text-md xl:text-2xl font-bold text-black rounded-2xl w-fit absolute top-[-45px] md:top-[-60px] left-[-20px] md:left-[-30px]   "
                                 style={{ backgroundColor: "#e6cf00" }}
                             >
                                 {techSteps[techSteps.length - 1]}
