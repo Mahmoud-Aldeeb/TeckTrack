@@ -1,13 +1,4 @@
 
-
-
-
-
-
-
-
-
-
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import VideoWithModal from "./VideoModal";
@@ -16,6 +7,7 @@ import QuestionsList from "../TrackDetails/QuestionsList/QuestionsList";
 import { useApi } from "../../../context/ApiContext";
 import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
+import SEO from "../../../componants/ui/SEO";
 
 
 export default function SubSubTrackDetails() {
@@ -67,79 +59,85 @@ export default function SubSubTrackDetails() {
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 
+  const pageTitle = `${track.trackName} - ${activeTech?.technologyName || track.echnologyName} – ${subCategoryName} | TeckTrack`;
+  const pageDescription = `${track.description || `Learn ${track.trackName} step-by-step with videos, roadmap, and real interview questions.`} Master ${activeTech?.technologyName || track.trackName} in ${categoryName}.`;
+  const pageUrl = `https://tecktrack.vercel.app/roadmap/${categoryId}/${subCategoryId}/${trackId}`;
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-light to-white text-text flex flex-col">
-      <main className="flex-1 container mx-auto px-6 mt-20 py-16 md:py-24 text-left space-y-12">
 
-        {/* Header */}
-        <div className="max-w-5xl mx-auto space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-secondary border-l-6 border-primary pl-4 capitalize">
-            {track.trackName}
-          </h1>
-          <p>{track.description}</p>
-
-          {/* Breadcrumb */}
-          <div className="flex flex-wrap gap-2 text-[12px] md:text-[15px] pb-2">
-            <Link to="/roadmap/" className="text-gray-400">Roadmaps</Link>
-            {' / '}
-            <Link to={`/roadmap/${categoryId}`} className="text-gray-400">{categoryName}</Link>
-            {' / '}
-            <Link to={`/roadmap/${categoryId}/${subCategoryId}`} className="text-gray-400">{subCategoryName}</Link>
-            {' / '}
-            <span className="text-secondary font-medium">{track.trackName}</span>
-          </div>
-        </div>
-
-        {/* Technology Buttons */}
-        <div className="flex justify-center gap-4 flex-wrap mb-8">
-          {trackTechnologies.map(tech => (
-            <button
-              key={tech.technologyId}
-              onClick={() => setActiveTech(tech)}
-              className={`px-4 py-2 rounded-full font-bold cursor-pointer transition duration-300 ${activeTech?.technologyId === tech.technologyId
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                }`}
-            >
-              {tech.technologyName}
-            </button>
-          ))}
-        </div>
-
-        {/* Video Section */}
-        {activeTech && (
-          <VideoWithModal
-            slug={categoryId}
-            subSlug={subCategoryId}
-            title={activeTech.technologyName}
-            description={activeTech.description || ""}
-          />
-        )}
-
-      </main>
-
-      {/* Roadmap Section */}
-      {/* <RoadmapSection
-        roadmap={roadmap}
-        loading={false}
-        error={null}
-        displayTitle={activeTech?.technologyName || "Roadmap"}
-      /> */}
-      <RoadmapSection
-        technologyId={activeTech?.technologyId}
-        loading={false}
-        error={null}
-        displayTitle={activeTech?.technologyName || "Roadmap"}
+    <>
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        url={pageUrl}
       />
 
-      {/* Questions Section */}
-      {activeTech && (
-        <QuestionsList
-          technologyId={activeTech.technologyId}
-          showSearch={true}
-          showFilters={true}
+      <div className="min-h-screen bg-gradient-to-b from-primary-light to-white text-text flex flex-col">
+        <main className="flex-1 container mx-auto px-6 mt-20 py-16 md:py-24 text-left space-y-12">
+
+          {/* Header */}
+          <div className="max-w-5xl mx-auto space-y-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-secondary border-l-6 border-primary pl-4 capitalize">
+              {track.trackName}
+            </h1>
+            <p>{track.description}</p>
+
+            {/* Breadcrumb */}
+            <div className="flex flex-wrap gap-2 text-[12px] md:text-[15px] pb-2">
+              <Link to="/roadmap/" className="text-gray-400">Roadmaps</Link>
+              {' / '}
+              <Link to={`/roadmap/${categoryId}`} className="text-gray-400">{categoryName}</Link>
+              {' / '}
+              <Link to={`/roadmap/${categoryId}/${subCategoryId}`} className="text-gray-400">{subCategoryName}</Link>
+              {' / '}
+              <span className="text-secondary font-medium">{track.trackName}</span>
+            </div>
+          </div>
+
+          {/* Technology Buttons */}
+          <div className="flex justify-center gap-4 flex-wrap mb-8">
+            {trackTechnologies.map(tech => (
+              <button
+                key={tech.technologyId}
+                onClick={() => setActiveTech(tech)}
+                className={`px-4 py-2 rounded-full font-bold cursor-pointer transition duration-300 ${activeTech?.technologyId === tech.technologyId
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                  }`}
+              >
+                {tech.technologyName}
+              </button>
+            ))}
+          </div>
+
+          {/* Video Section */}
+          {activeTech && (
+            <VideoWithModal
+              slug={categoryId}
+              subSlug={subCategoryId}
+              title={activeTech.technologyName}
+              description={activeTech.description || ""}
+            />
+          )}
+
+        </main>
+
+        <RoadmapSection
+          technologyId={activeTech?.technologyId}
+          loading={false}
+          error={null}
+          displayTitle={activeTech?.technologyName || "Roadmap"}
         />
-      )}
-    </div>
+
+        {/* Questions Section */}
+        {activeTech && (
+          <QuestionsList
+            technologyId={activeTech.technologyId}
+            showSearch={true}
+            showFilters={true}
+          />
+        )}
+      </div>
+    </>
   );
 }

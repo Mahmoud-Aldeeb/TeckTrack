@@ -6,6 +6,7 @@ import Card from '../../componants/ui/Card';
 import { useApi } from '../../context/ApiContext';
 import Loader from '../../componants/ui/Loader';
 import ErrorMessage from '../../componants/ui/Error';
+import SEO from '../../componants/ui/SEO';
 
 const Companies = () => {
   const { companies = [], CompanyTechnologies = [], loading, error } = useApi();
@@ -47,43 +48,15 @@ const Companies = () => {
   return (
     <>
       {/* ================================== SEO ==================================*/}
-      <title>{pageTitle}</title>
-      <meta name="description" content={pageDescription} />
-      <meta name="keywords" content="tech companies, software companies, Egypt tech, Middle East startups, IT jobs, TeckTrack" />
-      <link rel="canonical" href="https://teck-track.vercel.app/companies" />
 
-      {/* Open Graph */}
-      <meta property="og:title" content={pageTitle} />
-      <meta property="og:description" content={pageDescription} />
-      <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://teck-track.vercel.app/og-companies.jpg" />
-      <meta property="og:url" content="https://teck-track.vercel.app/companies" />
-      <meta property="og:site_name" content="TeckTrack" />
-
-
-      {/* Structured Data - JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Top Tech Companies in Egypt & Middle East - Official Directory",
-            "description": "Curated list of software and technology companies with direct links to their official websites.",
-            "url": "https://teck-track.vercel.app/companies",
-            "numberOfItems": companies.length,
-            "itemListElement": companies.map((company, index) => ({
-              "@type": "ListItem",
-              "position": index + 1,
-              "item": {
-                "@type": "Organization",
-                "name": company.companyName,
-                "url": company.websiteUrl,
-              }
-            }))
-          })
-        }}
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        url="https://teck-track.vercel.app/companies"
       />
+
+
+
 
       {/* ================================== Page Content ================================== */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-25">

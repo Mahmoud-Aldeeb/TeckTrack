@@ -4,6 +4,7 @@ import Loader from "../../componants/ui/Loader";
 import ErrorMessage from "../../componants/ui/Error";
 
 import { useApi } from "../../context/ApiContext";
+import SEO from "../../componants/ui/SEO";
 
 
 const RoadmapPage = () => {
@@ -31,47 +32,10 @@ const RoadmapPage = () => {
   return (
     <>
 
-      {/* ==================== React 19 Native Metadata (ثابتة + قوية) ==================== */}
-      <title>Developer Roadmap 2025 - Step by Step Learning Path | TeckTrack</title>
-      <meta
-        name="description"
-        content="Free structured developer roadmap for 2025. Learn Web Development, Mobile, Data Science, DevOps, Cybersecurity and more – step by step with real company skills."
-      />
-      <link rel="canonical" href="https://teck-track.vercel.app/roadmap" />
-
-      {/* Open Graph / Facebook */}
-      <meta property="og:title" content="Developer Roadmap 2025 - From Zero to Pro | TeckTrack" />
-      <meta property="og:description" content="The complete step-by-step learning path used by top tech companies. Choose your track and start growing today!" />
-      <meta property="og:image" content="https://teck-track.vercel.app/og-companies.jpg" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:url" content="https://teck-track.vercel.app/roadmap" />
-      <meta property="og:type" content="website" />
-
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Developer Learning Roadmaps 2025",
-            "description": "Structured learning paths for different tech careers: Web Development, Mobile, Data Science, DevOps, and more.",
-            "url": "https://teck-track.vercel.app/roadmap",
-            "numberOfItems": tracks.length,
-            "itemListElement": tracks.map((track, index) => ({
-              "@type": "ListItem",
-              "position": index + 1,
-              "item": {
-                "@type": "LearningResource",
-                "name": track.title,
-                "description": track.desc || `Learning path for ${track.title}`,
-                "url": `https://teck-track.vercel.app/roadmap/${track.categoryId}`,
-                "educationalLevel": "Beginner to Advanced",
-              }
-            }))
-          })
-        }}
+      <SEO
+        title={"Developer Roadmap 2025 - Step by Step Learning Path | TeckTrack"}
+        description={"Free structured developer roadmap for 2025. Learn Web Development, Mobile, Data Science, DevOps, Cybersecurity and more – step by step with real company skills."}
+        url={"https://teck-track.vercel.app/roadmap"}
       />
 
 
