@@ -9,6 +9,7 @@ export const Btn = ({ url = "", content, arrow = true, Px = "6" }) => {
       {content}
       {arrow ? (
         <img
+          loading="lazy"
           src="/assets/image/arrow-up-right.png"
           alt="arrow icon"
           className="w-5 h-5 "

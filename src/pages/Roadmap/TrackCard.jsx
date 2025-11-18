@@ -29,6 +29,7 @@ const TrackCard = ({ title, desc, img, categoryId }) => {
 
       <div className="absolute inset-0">
         <img
+          loading="lazy"
           src={img}
           alt={title}
           className=" h-full object-cover transition-transform duration-500 group-hover:scale-110"

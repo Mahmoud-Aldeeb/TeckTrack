@@ -53,6 +53,7 @@ export default function Nav() {
         {/* Brand */}
         <a href="/" className="flex items-center gap-2">
           <img
+            loading="lazy"
             src="/assets/image/logo1.png"
             alt="Logo"
             className="w-11 h-12"

@@ -45,6 +45,7 @@ function ReviewCard({ image, name, role, text, rating }) {
       {/* User Info */}
       <div className="flex items-center gap-2 sm:gap-3 mt-auto border-t border-gray-100 pt-3">
         <img
+          loading="lazy"
           src={image}
           alt={name}
           className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-blue-500 shadow-sm"

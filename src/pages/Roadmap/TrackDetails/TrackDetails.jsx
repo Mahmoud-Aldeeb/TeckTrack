@@ -76,10 +76,10 @@ export default function CategoryPage() {
             >
               {sub.imageUrl && (
                 <img
+                  loading="lazy"
                   src={sub.imageUrl}
                   alt={sub.subCategoryName}
                   className="w-full h-48 object-cover"
-
                 />
               )}
               <div className="p-6 flex flex-col flex-grow">
