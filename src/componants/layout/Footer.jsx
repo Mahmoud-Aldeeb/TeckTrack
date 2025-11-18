@@ -39,6 +39,7 @@ export default function Footer() {
             <img
               src="/assets/image/logo2.png"
               alt="Logo"
+              loading="lazy"
               className="w-10 h-12"
             />
             <span className="text-[var(--color-secondary)] text-2xl font-bold">

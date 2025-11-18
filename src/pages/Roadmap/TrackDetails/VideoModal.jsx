@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useApi } from "../../../context/ApiContext"
 const VideoWithModal = ({ title, description, technologyId }) => {
@@ -22,10 +23,12 @@ const VideoWithModal = ({ title, description, technologyId }) => {
     if (loading) return <Loader />;
     if (error) return <ErrorMessage message={error} />;
 
+
     const openVideo = (e) => {
         e?.preventDefault();
         setIsModalOpen(true);
     };
+
     const closeVideo = () => setIsModalOpen(false);
 
     return (
@@ -97,7 +100,7 @@ const VideoWithModal = ({ title, description, technologyId }) => {
                             <iframe
                                 className="absolute inset-0 w-full h-full"
                                 src={`${embedUrl}?autoplay=1`}
-                                title={technology.technologyName}
+                                title={title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             />

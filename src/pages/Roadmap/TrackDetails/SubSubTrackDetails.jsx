@@ -51,11 +51,6 @@ export default function SubSubTrackDetails() {
     setActiveTech(trackTechnologies[0]);
   }
 
-
-
-
-
-
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 

@@ -167,6 +167,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                         </div>
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <img
+                                loading="lazy"
                                 src="/assets/image/cup.png"
                                 className="absolute right-[-50px] top-[-180px]"
                                 alt="Cup Image"
@@ -197,6 +198,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                         </div>
                         <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                             <img
+                                loading="lazy"
                                 src="/assets/image/cup.png"
                                 className="absolute left-[-50px] top-[-152px]"
                                 alt="Cup Image"
@@ -231,6 +233,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                     </div>
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
+                            loading="lazy"
                             src="/assets/image/cup.png"
                             className="absolute right-[10px] top-[-152px]"
                             alt="Cup Image"
@@ -264,6 +267,7 @@ const RoadmapLine = ({ displayTitle, technologyId }) => {
                     </div>
                     <div className="w-[200px] md:w-[450px] lg:w-[700px] xl:w-[900px] flex justify-center  items-center relative">
                         <img
+                            loading="lazy"
                             src="/assets/image/cup.png"
                             className="absolute left-[20px] top-[-150px]"
                             alt="Cup Image"

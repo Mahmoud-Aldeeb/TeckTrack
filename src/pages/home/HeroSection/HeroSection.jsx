@@ -1,5 +1,5 @@
 
-import heroImg from "/assets/image/bg.png";
+import heroImg from "/assets/image/bg.webp";
 import heroVector from "/assets/image/Vector.png";
 import arrowVector from "/assets/image/arrow-up-right.png";
 import { useTranslation } from "react-i18next";
@@ -56,8 +56,8 @@ function HeroSection() {
         {/* Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="hero-bg">
-            <img src={heroImg} alt="tech icons background" draggable="false" />
-            <img src={heroImg} alt="" aria-hidden="true" draggable="false" />
+            <img src={heroImg} loading="lazy" alt="tech icons background" draggable="false" />
+            <img src={heroImg} loading="lazy" alt="" aria-hidden="true" draggable="false" />
           </div>
         </div>
 
@@ -66,6 +66,7 @@ function HeroSection() {
           {/* Tag */}
           <div className="mb-8 flex items-center justify-center gap-2 rounded-full bg-blue-600/10 px-6 py-3 text-sm font-medium text-blue-900 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-md backdrop-saturate-150 w-fit m-auto">
             <img
+              loading="lazy"
               src={heroVector}
               alt="Hero background"
               className="h-auto w-4 object-cover opacity-90"
@@ -93,6 +94,7 @@ function HeroSection() {
             >
               {Primary_Button}
               <img
+                loading="lazy"
                 src={arrowVector}
                 alt="arrow"
                 className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
