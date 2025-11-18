@@ -99,12 +99,13 @@ const VideoWithModal = ({ title, description, technologyId }) => {
                         <div className="relative pt-[56.25%]">
                             <iframe
                                 className="absolute inset-0 w-full h-full"
-                                src={`${embedUrl}??autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`}
+                                src={`${embedUrl}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=https://yourdomain.com`}
                                 title={title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                                 playsInline
                                 muted
+                                sandbox="allow-scripts allow-same-origin allow-presentation"
                             />
                         </div>
 
