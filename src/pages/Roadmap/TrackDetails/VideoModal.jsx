@@ -7,7 +7,6 @@ const VideoWithModal = ({ title, description, technologyId }) => {
         e?.preventDefault();
         setIsModalOpen(true);
     };
-    console.log(technologyId)
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -23,8 +22,6 @@ const VideoWithModal = ({ title, description, technologyId }) => {
                 }
     
                 const result = await response.json();
-                console.log("API Response:", result.data.videoUrl);
-                console.log("API Response:", result.data.videoUrl.split("youtu.be/")[1].split("?")[0]);
                 setData(result.data.videoUrl.split("youtu.be/")[1].split("?")[0]);
     
             } catch (err) {
