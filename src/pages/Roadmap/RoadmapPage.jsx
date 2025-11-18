@@ -49,7 +49,7 @@ const RoadmapPage = () => {
           <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-3xl mx-auto h-24">
             The developer journey can feel overwhelming — so we’ve organized a structured roadmap to help you learn step-by-step. Each phase introduces new concepts, tools, and real-world skills used by companies today. Whether you’re just starting or advancing your career, this roadmap guides you toward confidence and clarity.
           </p>
-          <div className="w-2xs md:w-lg h-px bg-black  mx-auto"></div>
+          <div className="w-2xs md:w-lg h-px bg-black  mx-auto mt-12 sm:mt-auto"></div>
         </section>
 
 

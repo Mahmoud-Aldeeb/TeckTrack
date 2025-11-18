@@ -15,7 +15,7 @@ export default function SEO({ title, description, url, image = "https://teck-tra
             <meta property="og:url" content={url} />
             <meta property="og:type" content="website" />
 
-            {/* Structured Data (اختياري بس قوي) */}
+            {/* Structured Data */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{

@@ -21,9 +21,7 @@ export const apiService = {
     getSubCategories: () => api.get(`/SubCategory`),
     getSubCategoriesId: (subCategoryId) => api.get(`/SubCategory/${subCategoryId}`),
     getTracks: () => api.get(`/Track`),
-    getTracksId: (trackId) => api.get(`/Track/${trackId}`),
     getTechnologies: () => api.get(`/Technology`),
-    getTechnologiesId: (technologyId) => api.get(`/Technology/${technologyId}`),
     getInterviewQuestions: () => api.get(`/InterviewQuestion`),
     getRoadmap: () => api.get(`/Roadmap`),
 

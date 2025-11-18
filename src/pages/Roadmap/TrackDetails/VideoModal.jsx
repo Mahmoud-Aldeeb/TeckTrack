@@ -1,13 +1,31 @@
 import { useState } from "react";
-
-const VideoWithModal = ({ title, subSlug, description }) => {
+import { useApi } from "../../../context/ApiContext"
+const VideoWithModal = ({ title, description, technologyId }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {
+        allTechnologies,
+        loading,
+        error
+    } = useApi();
+
+    const technology = allTechnologies.find(
+        (tech) => tech.technologyId === Number(technologyId)
+    );
+
+    const getVideoId = (url) => {
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+        return match ? match[1] : null;
+    };
+    const videoId = getVideoId(technology.videoUrl);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+    if (loading) return <Loader />;
+    if (error) return <ErrorMessage message={error} />;
 
     const openVideo = (e) => {
         e?.preventDefault();
         setIsModalOpen(true);
     };
-
     const closeVideo = () => setIsModalOpen(false);
 
     return (
@@ -16,9 +34,17 @@ const VideoWithModal = ({ title, subSlug, description }) => {
             <div className="mt-16 flex flex-col lg:flex-row items-start gap-10 max-w-6xl mx-auto">
                 {/* Video Card */}
                 <div
-                    className="flex-1 w-full min-h-[220px] sm:min-h-[280px] md:min-h-[400px] relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-primary-light to-white group cursor-pointer"
+                    className="flex-1 w-full min-h-[220px] sm:min-h-[280px] md:min-h-[400px] relative rounded-2xl overflow-hidden shadow-xl bg-gray-200 group cursor-pointer"
                     onClick={openVideo}
                 >
+                    <img
+                        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                        alt="video thumbnail"
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
+
                     <div className="absolute inset-0 flex items-center justify-center z-10">
                         <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                             <svg
@@ -70,13 +96,13 @@ const VideoWithModal = ({ title, subSlug, description }) => {
                         <div className="relative pt-[56.25%]">
                             <iframe
                                 className="absolute inset-0 w-full h-full"
-                                src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-                                title={`${title} video`}
-                                frameBorder="0"
+                                src={`${embedUrl}?autoplay=1`}
+                                title={technology.technologyName}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             />
                         </div>
+
                     </div>
                 </div>
             )}
