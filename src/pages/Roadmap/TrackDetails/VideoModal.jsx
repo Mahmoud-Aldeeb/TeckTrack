@@ -103,6 +103,8 @@ const VideoWithModal = ({ title, description, technologyId }) => {
                                 title={title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
+                                playsInline
+                                muted
                             />
                         </div>
 
