@@ -117,6 +117,7 @@ export default function SubSubTrackDetails() {
               subSlug={subCategoryId}
               title={activeTech.technologyName}
               description={activeTech.description || ""}
+              technologyId={activeTech?.technologyId}
             />
           )}
 

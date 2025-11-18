@@ -1,12 +1,43 @@
-import { useState } from "react";
-
-const VideoWithModal = ({ title, subSlug, description }) => {
+import { useEffect, useState } from "react";
+const VideoWithModal = ({ title, description, technologyId }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [data, setData] = useState([]);
 
     const openVideo = (e) => {
         e?.preventDefault();
         setIsModalOpen(true);
     };
+    console.log(technologyId)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                console.log("Fetching...", technologyId);
+    
+                const response = await fetch(
+                    // `http://techtrack.runasp.net/api/Technology/${technologyId}`
+                    `/api/Technology/${technologyId}`
+                );
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+    
+                const result = await response.json();
+                console.log("API Response:", result.data.videoUrl);
+                console.log("API Response:", result.data.videoUrl.split("youtu.be/")[1].split("?")[0]);
+                setData(result.data.videoUrl.split("youtu.be/")[1].split("?")[0]);
+    
+            } catch (err) {
+                console.error("Fetch error:", err);
+            }
+        };
+    
+        if (technologyId) {
+            fetchData();
+        }
+    }, [technologyId]);
+    
+    
 
     const closeVideo = () => setIsModalOpen(false);
 
@@ -16,9 +47,17 @@ const VideoWithModal = ({ title, subSlug, description }) => {
             <div className="mt-16 flex flex-col lg:flex-row items-start gap-10 max-w-6xl mx-auto">
                 {/* Video Card */}
                 <div
-                    className="flex-1 w-full min-h-[220px] sm:min-h-[280px] md:min-h-[400px] relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-primary-light to-white group cursor-pointer"
+                    className="flex-1 w-full min-h-[220px] sm:min-h-[280px] md:min-h-[400px] relative rounded-2xl overflow-hidden shadow-xl bg-gray-200 group cursor-pointer"
                     onClick={openVideo}
                 >
+                    <img
+                        src={`https://img.youtube.com/vi/${data}/maxresdefault.jpg`}
+                        alt="video thumbnail"
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
+
                     <div className="absolute inset-0 flex items-center justify-center z-10">
                         <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                             <svg
@@ -70,13 +109,14 @@ const VideoWithModal = ({ title, subSlug, description }) => {
                         <div className="relative pt-[56.25%]">
                             <iframe
                                 className="absolute inset-0 w-full h-full"
-                                src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
+                                src={`https://www.youtube.com/embed/${data}`}
                                 title={`${title} video`}
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             />
                         </div>
+
                     </div>
                 </div>
             )}
