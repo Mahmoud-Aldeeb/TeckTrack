@@ -95,14 +95,11 @@ export default function SubTrackDetails() {
 
                   <div className="flex justify-between items-center mb-6">
                     <span className="text-indigo-600 font-bold">Difficulty</span>
-                    <span className={`px-4 py-2 rounded-full text-sm font-bold ${track.difficultyLevel <= 2 ? "bg-green-100 text-green-800" :
-                      track.difficultyLevel === 3 ? "bg-yellow-100 text-yellow-800" :
+                    <span className={`px-4 py-2 rounded-full text-sm font-bold ${track.difficultyLevel === "Beginner" ? "bg-green-100 text-green-800" :
+                      track.difficultyLevel === "Intermediate" ? "bg-yellow-200 text-yellow-800" :
                         "bg-red-100 text-red-800"
                       }`}>
-                      {track.difficultyLevel === 1 ? "Beginner" :
-                        track.difficultyLevel === 2 ? "Beginner-Intermediate" :
-                          track.difficultyLevel === 3 ? "Intermediate" :
-                            track.difficultyLevel === 4 ? "Advanced" : "Expert"}
+                      {track.difficultyLevel}
                     </span>
                   </div>
 
