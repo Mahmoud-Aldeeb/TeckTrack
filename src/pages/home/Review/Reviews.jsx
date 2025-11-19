@@ -33,7 +33,7 @@ function Reviews() {
         },
         {
           id: 3,
-          name: "Omar Saeed",
+          name: "Hanaa Ismail",
           role: "Backend Engineer",
           text: "The backend track with Node.js was very practical and helped me land my internship.",
           image: "https://i.pravatar.cc/150?img=32",
@@ -49,7 +49,7 @@ function Reviews() {
         },
         {
           id: 5,
-          name: "Youssef Ali",
+          name: "Rania Adel",
           role: "Data Analyst",
           text: "Great community and mentors. I learned Python and visualization in a simple way.",
           image: "https://i.pravatar.cc/150?img=27",
@@ -64,6 +64,7 @@ function Reviews() {
           rating: 5,
         },
       ];
+
       setReviews(fakeData);
 
     };
@@ -71,7 +72,7 @@ function Reviews() {
     fetchReviews();
   }, []);
 
-  // 🌀 Animation
+  //  Animation
   useEffect(() => {
     if (reviews.length) {
       controls.start({

@@ -28,11 +28,11 @@ export default function SubSubTrackDetails() {
   const trkId = parseInt(trackId);
 
   if (isNaN(catId) || isNaN(subId) || isNaN(trkId)) {
-    return <ErrorMessage message="Invalid URL parameters" />;
+    return <Loader />;
   }
 
   const track = tracks.find(t => t.trackId === trkId);
-  if (!track) return <ErrorMessage message="Track not found" />;
+  if (!track) return <Loader />;
 
 
   const category = categories.find(c => c.categoryId === catId);
