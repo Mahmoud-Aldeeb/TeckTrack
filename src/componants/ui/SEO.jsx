@@ -1,11 +1,9 @@
-// src/components/ui/SEO.jsx
 export default function SEO({ title, description, url, image = "https://teck-track.vercel.app/og-default.jpg" }) {
     return (
         <>
             <title>{title}</title>
             <meta name="description" content={description} />
             <link rel="canonical" href={url} />
-
             {/* Open Graph */}
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
@@ -14,7 +12,6 @@ export default function SEO({ title, description, url, image = "https://teck-tra
             <meta property="og:image:height" content="630" />
             <meta property="og:url" content={url} />
             <meta property="og:type" content="website" />
-
             {/* Structured Data */}
             <script
                 type="application/ld+json"
@@ -26,8 +23,7 @@ export default function SEO({ title, description, url, image = "https://teck-tra
                         "description": description,
                         "url": url
                     })
-                }}
-            />
+                }} />
         </>
     );
 }

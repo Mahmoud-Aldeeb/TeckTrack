@@ -16,21 +16,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/roadmap" element={<RoadmapPage />} />
-
         <Route path="/roadmap/:categoryId" element={<CategoryPage />} />
-
         <Route
           path="/roadmap/:categoryId/:subCategoryId"
           element={<SubTrackDetails />}
         />
-
         <Route
           path="/roadmap/:categoryId/:subCategoryId/:trackId"
           element={<SubSubTrackDetails />}
         />
-
         <Route path="/companies" element={<Companies />} />
-
       </Routes>
       <Footer />
     </Router>

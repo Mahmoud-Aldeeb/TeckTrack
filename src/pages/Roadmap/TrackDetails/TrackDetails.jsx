@@ -10,9 +10,7 @@ export default function CategoryPage() {
   const { categories, subCategories, loading, error } = useApi();
   const { categoryId } = useParams();
   const navigate = useNavigate();
-
   const id = parseInt(categoryId);
-
   if (isNaN(id)) {
     return <ErrorMessage message="Invalid category ID" />;
   }
@@ -22,23 +20,14 @@ export default function CategoryPage() {
     .filter(sub => sub.categoryId === id)
     .filter(sub => sub.subCategoryName && sub.subCategoryName !== "string");
 
-
-  console.log(filteredSubs);
-
-
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
-
   return (
     <>
-
       <SEO
-
         title={`${category.categoryName} Developer Roadmap 2025 | TeckTrack`}
         description={`Complete ${category.categoryName} learning path with step-by-step tracks: ${filteredSubs.map(s => s.subCategoryName).join(', ')}. From beginner to advanced – free and updated for 2025.`}
         url={`https://teck-track.vercel.app/roadmap/${categoryId}`}
-
-
       />
 
       <div className="min-h-screen px-3 bg-white pt-16 sm:pt-20 flex flex-col items-center pb-20">

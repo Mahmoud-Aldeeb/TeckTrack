@@ -6,7 +6,6 @@ import { Btn } from '../../componants/ui/Btn';
 const TrackCard = ({ title, desc, img, categoryId }) => {
   return (
     <div className={`
-
             relative overflow-hidden rounded-2xl 
             group
             w-full
@@ -24,9 +23,6 @@ const TrackCard = ({ title, desc, img, categoryId }) => {
             mx-auto
         `}
     >
-
-
-
       <div className="absolute inset-0">
         <img
           loading="lazy"

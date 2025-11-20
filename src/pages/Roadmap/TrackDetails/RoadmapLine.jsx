@@ -1,4 +1,4 @@
-// src/components/RoadmapLine/RoadmapLine.jsx
+
 import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
 import { useApi } from "../../../context/ApiContext";
@@ -6,7 +6,6 @@ import { useApi } from "../../../context/ApiContext";
 const RoadmapLine = ({ displayTitle, technologyId }) => {
     const { roadmaps, loading, error } = useApi();
 
-    // ابحث عن الـ Roadmap
     const roadmap = roadmaps.find(r => r.technologyId === parseInt(technologyId));
     const techSteps = roadmap?.steps || [];
 

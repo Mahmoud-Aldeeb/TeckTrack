@@ -87,7 +87,6 @@ export default function SubTrackDetails() {
                     </h3>
                   </div>
                 </div>
-
                 <div className="p-5 xl:p-8 relative">
                   <p className="text-gray-600 text-lg leading-relaxed mb-8">
                     {track.description || "No description available."}
@@ -134,7 +133,7 @@ export default function SubTrackDetails() {
             </button>
           </div>
         )}
-      </div>
+      </div >
     </>
   );
 }

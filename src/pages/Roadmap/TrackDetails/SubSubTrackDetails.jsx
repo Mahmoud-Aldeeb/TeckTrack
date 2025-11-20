@@ -9,7 +9,6 @@ import Loader from "../../../componants/ui/Loader";
 import ErrorMessage from "../../../componants/ui/Error";
 import SEO from "../../../componants/ui/SEO";
 
-
 export default function SubSubTrackDetails() {
   const { trackId, categoryId, subCategoryId } = useParams();
   const {
