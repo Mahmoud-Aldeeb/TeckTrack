@@ -13,27 +13,20 @@ export default function SubTrackDetails() {
   const catId = parseInt(categoryId);
   const subId = parseInt(subCategoryId);
 
-
-  if (isNaN(catId) || isNaN(subId)) {
-    return <ErrorMessage message="Invalid URL parameters" />;
-  }
-
-
   const subCategory = subCategories.find(
     sub => sub.subCategoryId === subId && sub.categoryId === catId && sub.subCategoryName !== "string"
   );
 
-
-
-
   const category = categories.find(cat => cat.categoryId === catId);
   const categoryName = category?.categoryName || "Unknown Category";
-
 
   const filteredTracks = tracks
     .filter(track => track.subCategoryId === subId)
     .filter(track => track.trackName && track.trackName !== "string");
 
+  if (isNaN(catId) || isNaN(subId)) {
+    return <ErrorMessage message="Invalid URL parameters" />;
+  }
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 

@@ -25,14 +25,7 @@ const SubSubTrackDetails = () => {
   const subId = Number(subCategoryId);
   const trkId = Number(trackId);
 
-  // تحقق مبكر من الـ IDs
-  if (isNaN(catId) || isNaN(subId) || isNaN(trkId)) {
-    return <ErrorMessage message="Invalid URL parameters" />;
-  }
-
   const track = tracks.find(t => t.trackId === trkId);
-  if (!track) return <ErrorMessage message="Track not found" />;
-
   const category = categories.find(c => c.categoryId === catId);
   const subCategory = subCategories.find(s => s.subCategoryId === subId);
 
@@ -43,12 +36,19 @@ const SubSubTrackDetails = () => {
     .filter(tech => tech.trackId === trkId)
     .filter(tech => tech.technologyName && tech.technologyName !== "string");
 
-  // اختيار أول تكنولوجيا تلقائيًا مرة واحدة فقط
   useEffect(() => {
     if (trackTechnologies.length > 0 && !activeTech) {
       setActiveTech(trackTechnologies[0]);
     }
-  }, [trackTechnologies, activeTech]);
+  }, [trackTechnologies.length, activeTech]);
+
+  if (isNaN(catId) || isNaN(subId) || isNaN(trkId)) {
+    return <ErrorMessage message="Invalid URL parameters" />;
+  }
+
+  if (!track) {
+    return <ErrorMessage message="Track not found" />;
+  }
 
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
@@ -88,8 +88,8 @@ const SubSubTrackDetails = () => {
                   key={tech.technologyId}
                   onClick={() => setActiveTech(tech)}
                   className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 whitespace-nowrap ${activeTech?.technologyId === tech.technologyId
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                     }`}
                 >
                   {tech.technologyName}

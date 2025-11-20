@@ -9,17 +9,16 @@ const CategoryPage = () => {
   const { categories, subCategories, loading, error } = useApi();
   const { categoryId } = useParams();
   const navigate = useNavigate();
-
   const id = parseInt(categoryId);
-  if (isNaN(id)) return <ErrorMessage message="Invalid category ID" />;
 
   const category = categories.find(cat => cat.categoryId === id);
-  if (!category) return <ErrorMessage message="Category not found" />;
 
   const filteredSubs = subCategories
     .filter(sub => sub.categoryId === id)
     .filter(sub => sub.subCategoryName && sub.subCategoryName !== "string");
 
+  if (!category) return <ErrorMessage message="Category not found" />;
+  if (isNaN(id)) return <ErrorMessage message="Invalid category ID" />;
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 

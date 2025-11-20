@@ -5,12 +5,12 @@ const QuestionCard = ({ question, index }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const getDifficultyColor = (difficulty) => {
-        switch (difficulty?.toLowerCase()) {
-            case "beginner":
+        switch (difficulty?.toString().toLowerCase().trim()) {
+            case "easy":
                 return "bg-green-100 text-green-800 border-green-200";
-            case "intermediate":
+            case "medium":
                 return "bg-yellow-100 text-yellow-800 border-yellow-200";
-            case "advanced":
+            case "hard":
                 return "bg-red-100 text-red-800 border-red-200";
             default:
                 return "bg-gray-100 text-gray-800 border-gray-200";
@@ -18,7 +18,7 @@ const QuestionCard = ({ question, index }) => {
     };
 
     const getTypeColor = (type) => {
-        switch (type?.toLowerCase()) {
+        switch (type?.toString().toLowerCase().trim()) {
             case "technical":
                 return "bg-blue-100 text-blue-800 border-blue-200";
             case "behavioral":
