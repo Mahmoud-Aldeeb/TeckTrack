@@ -48,7 +48,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="bg-[var(--color-white)] shadow-sm fixed w-full top-0 left-0 z-50 ">
+    <nav className="bg-white shadow-sm fixed w-full top-0 left-0 z-50 ">
       <div className="container mx-auto flex flex-wrap items-center justify-between py-3 px-6">
         {/* Brand */}
         <a href="/" className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export default function Nav() {
             alt="Logo"
             className="w-11 h-12"
           />
-          <span className="text-[var(--color-secondary)] text-2xl font-bold">
+          <span className="text-secondary text-2xl font-bold">
             TechTrack
           </span>
         </a>
@@ -108,7 +108,7 @@ export default function Nav() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-[72px] right-0 w-full h-fit bg-white shadow-lg z-40 flex flex-col justify-center items-start ps-10 py-10 space-y-6 text-lg font-medium text-[--color-text] md:hidden rounded-l-3xl"
+              className="fixed top-[72px] right-0 w-full h-fit bg-white shadow-lg z-40 flex flex-col justify-center items-start ps-10 py-10 space-y-6 text-lg font-medium text-text md:hidden rounded-l-3xl"
             >
               {links.map((link, index) => {
                 const fullPath = "/" + link.path; // "/roadmap" أو "/companies" أو "/"
@@ -126,26 +126,13 @@ export default function Nav() {
                       setActive(fullPath);
                       setIsOpen(false);
                     }}
-                    className={`relative pb-2 hover:text-[var(--color-primary)] ${isActive ? "text-[var(--color-primary)] font-semibold active-link" : ""
+                    className={`relative pb-2 hover:text-primary ${isActive ? "text-primary font-semibold active-link" : ""
                       }`}
                   >
                     {link.name}
                   </a>
                 );
               })}
-
-
-
-              {/* <div className="flex gap-5">
-                <Btn content={t("nav.signup")} arrow={false} px="11" />
-                <button
-                  onClick={() =>
-                    i18n.changeLanguage(i18n.language === "en" ? "ar" : "en")
-                  }
-                >
-                  {i18n.language === "en" ? "AR" : "EN"}
-                </button>
-              </div> */}
             </motion.div>
           )}
         </AnimatePresence>
@@ -168,7 +155,7 @@ export default function Nav() {
                   setActive(fullPath);
                   setIsOpen(false);
                 }}
-                className={`relative pb-2 hover:text-[var(--color-primary)] ${isActive ? "text-[var(--color-primary)] font-semibold active-link" : ""
+                className={`relative pb-2 hover:text-primary ${isActive ? "text-primary font-semibold active-link" : ""
                   }`}
               >
                 {link.name}

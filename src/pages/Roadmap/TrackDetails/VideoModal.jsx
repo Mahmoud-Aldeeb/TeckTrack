@@ -42,8 +42,12 @@ const VideoWithModal = ({ title, description, technologyId }) => {
                 >
                     <img
                         src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                        alt="video thumbnail"
+                        alt={`Preview thumbnail for ${title || technology?.technologyName || 'video'}`}
                         className="absolute inset-0 w-full h-full object-cover"
+                        fetchPriority="high"
+                        loading="eager"
+                        decoding="async"
+
                     />
 
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
