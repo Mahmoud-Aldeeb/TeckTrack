@@ -1,62 +1,79 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { Linkedin, Github, Twitter } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-export default function Footer() {
-  const { t } = useTranslation();
 
-  const columns = [
-    {
-      title: t("footer.explore.title"),
-      links: [
-        { label: t("footer.explore.links.home"), url: "/" },
-        { label: t("footer.explore.links.roadmaps"), url: "/roadmap" },
-        { label: t("footer.explore.links.companies"), url: "/companies" },
-      ],
-    },
-    {
-      title: t("footer.techtrack.title"),
-      links: [
-        { label: t("footer.techtrack.links.about"), url: "#" },
-        { label: t("footer.techtrack.links.contact"), url: "#" },
-      ],
-    },
-    {
-      title: t("footer.legal.title"),
-      links: [
-        { label: t("footer.legal.links.privacy"), url: "#" },
-        { label: t("footer.legal.links.terms"), url: "#" },
-      ],
-    },
-  ];
+const Footer = memo(function Footer() {
+  const columns = useMemo(
+    () => [
+      {
+        title: "Explore",
+        links: [
+          { label: "Home", url: "/" },
+          { label: "Roadmaps", url: "/roadmap" },
+          { label: "Companies", url: "/companies" },
+        ],
+      },
+      {
+        title: "TechTrack",
+        links: [
+          { label: "About Us", url: "#" },
+          { label: "Contact", url: "#" },
+        ],
+      },
+      {
+        title: "Legal",
+        links: [
+          { label: "Privacy Policy", url: "#" },
+          { label: "Terms of Service", url: "#" },
+        ],
+      },
+    ],
+    []
+  );
+
+  const socialIcons = useMemo(
+    () => [
+      { Icon: Linkedin, href: "https://linkedin.com" },
+      { Icon: Github, href: "https://github.com" },
+      { Icon: Twitter, href: "https://twitter.com" },
+    ],
+    []
+  );
 
   return (
     <footer className="bg-primary-light pt-12 w-full text-text">
       <div className="container mx-auto flex flex-wrap justify-between gap-8 md:gap-12 lg:gap-16 px-8 max-w-7xl">
-        {/*  Left Section */}
         <div className="w-full md:w-1/3 lg:w-1/4 mb-8 md:mb-0">
-          <a href="/" className="flex items-center gap-2 mb-6">
+          <Link to="/" className="flex items-center gap-2 mb-6 inline-block">
             <img
               src="/assets/image/logo2.png"
-              alt="Logo"
+              alt="TechTrack Logo"
+              width={40}
+              height={48}
               loading="lazy"
-              className="w-10 h-12"
+              decoding="async"
+              fetchPriority="low"
+              className="w-10 h-12 object-contain"
+              onError={(e) => {
+                e.currentTarget.src = "/assets/image/logo-fallback.png";
+              }}
             />
-            <span className="text-secondary text-2xl font-bold">
-              TechTrack
-            </span>
-          </a>
+            <span className="text-secondary text-2xl font-bold">TechTrack</span>
+          </Link>
+
           <p className="text-sm leading-7 mb-6 text-text max-w-xs">
-            {t("footer.description")}
+            Your all-in-one platform to prepare for technical interviews and land your dream job.
           </p>
 
-          {/*  Social icons */}
           <div className="flex gap-3">
-            {[Linkedin, Github, Twitter].map((Icon, index) => (
+            {socialIcons.map(({ Icon, href }, index) => (
               <a
-                key={`icon-${index}`}
-                href="#"
+                key={index}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-primary rounded-full flex items-center justify-center hover:bg-secondary transition-transform hover:scale-110"
+                aria-label={`Follow us on ${Icon.displayName || "social media"}`}
               >
                 <Icon className="text-white w-5 h-5" />
               </a>
@@ -64,21 +81,19 @@ export default function Footer() {
           </div>
         </div>
 
-        {/*  باقي الأعمدة */}
         {columns.map((col, i) => (
           <ul
-            key={`col-${i}`}
+            key={i}
             className="w-[calc(50%-20px)] sm:w-1/3 md:w-auto list-none mb-8 md:mb-0"
           >
             <li className="font-bold text-secondary mb-5 text-base">
               {col.title}
             </li>
             {col.links.map((link, idx) => (
-              <li key={`link-${i}-${idx}`} className="mb-4">
+              <li key={idx}>
                 <Link
-
-                  to={link.url} //  استخدم to بدل href
-                  className="text-sm hover:text-primary text-text transition-colors"
+                  to={link.url}
+                  className="text-sm hover:text-primary text-text transition-colors inline-block"
                 >
                   {link.label}
                 </Link>
@@ -88,14 +103,15 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* © Rights */}
       <div className="mx-auto bg-primary text-white flex justify-center py-2 mt-16">
-        <p className="mb-0 text-center">
+        <p className="mb-0 text-center text-sm">
           © 2025 TechTrack
           <span className="font-black text-2xl mx-0.5"> | </span>
-          {t("footer.rights")}
+          All rights reserved
         </p>
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;

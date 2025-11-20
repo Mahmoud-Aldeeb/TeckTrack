@@ -1,6 +1,5 @@
-// src/components/AnimationCard.jsx
+import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { useState, useEffect, useMemo } from "react";
 import Card from "../../../componants/ui/Card";
 import { useApi } from "../../../context/ApiContext";
 import Loader from "../../../componants/ui/Loader";
@@ -19,49 +18,58 @@ const AnimationCard = () => {
   const safeCompanies = Array.isArray(companies) ? companies : [];
   const safeTechs = Array.isArray(CompanyTechnologies) ? CompanyTechnologies : [];
 
-  const getCompanyTechs = (companyId) => {
-    return safeTechs
-      .filter(t => t.companyId === companyId)
-      .map(t => t.notes?.trim())
-      .filter(Boolean);
-  };
+  const getCompanyTechs = useMemo(() => {
+    const techMap = new Map();
+    safeTechs.forEach(t => {
+      if (!t.companyId || !t.notes?.trim()) return;
+      if (!techMap.has(t.companyId)) techMap.set(t.companyId, []);
+      techMap.get(t.companyId).push(t.notes.trim());
+    });
+    return (companyId) => techMap.get(companyId) || [];
+  }, [safeTechs]);
 
   const validCompanies = safeCompanies.slice(0, 6);
 
   const leftCards = useMemo(() =>
-    validCompanies.filter((_, i) => i < 3).map(c => ({
-      company: c,
-      techs: getCompanyTechs(c.companyId)
-    })), [validCompanies, safeTechs]
+    validCompanies
+      .filter((_, i) => i < 3)
+      .map(c => ({ company: c, techs: getCompanyTechs(c.companyId) })),
+    [validCompanies, getCompanyTechs]
   );
 
   const rightCards = useMemo(() =>
-    validCompanies.filter((_, i) => i >= 3).map(c => ({
-      company: c,
-      techs: getCompanyTechs(c.companyId)
-    })), [validCompanies, safeTechs]
+    validCompanies
+      .filter((_, i) => i >= 3)
+      .map(c => ({ company: c, techs: getCompanyTechs(c.companyId) })),
+    [validCompanies, getCompanyTechs]
   );
 
   const mobileCards = useMemo(() =>
-    validCompanies.filter((_, i) => i < 3).map(c => ({
-      company: c,
-      techs: getCompanyTechs(c.companyId)
-    })), [validCompanies, safeTechs]
+    validCompanies
+      .filter((_, i) => i < 3)
+      .map(c => ({ company: c, techs: getCompanyTechs(c.companyId) })),
+    [validCompanies, getCompanyTechs]
   );
 
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 
+  const animationProps = {
+    animate: { y: isLargeScreen ? ["80%", "-80%"] : ["100%", "-100%"] },
+    transition: { duration: 22, repeat: Infinity, ease: "linear" }
+  };
+
+  const oppositeAnimation = {
+    animate: { y: ["-80%", "80%"] },
+    transition: { duration: 22, repeat: Infinity, ease: "linear" }
+  };
+
   return (
-    <>
+    <div className="w-[calc(100%-30px)] sm:w-1/2 flex justify-center items-center gap-3 h-[580px] overflow-hidden">
       {isLargeScreen ? (
-        <div className="w-[calc(100%-30px)] sm:w-1/2 flex justify-center items-center gap-3 h-[580px] overflow-hidden">
+        <>
           {leftCards.length > 0 && (
-            <motion.div
-              className="flex flex-col justify-center items-center gap-3"
-              animate={{ y: ["80%", "-80%"] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            >
+            <motion.div className="flex flex-col justify-center items-center gap-3" {...animationProps}>
               <div className="flex flex-col gap-3">
                 {leftCards.map(({ company, techs }) => (
                   <Card key={company.companyId} company={company} companyTechs={techs} />
@@ -70,11 +78,7 @@ const AnimationCard = () => {
             </motion.div>
           )}
           {rightCards.length > 0 && (
-            <motion.div
-              className="flex flex-col justify-center items-center gap-3"
-              animate={{ y: ["-80%", "80%"] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            >
+            <motion.div className="flex flex-col justify-center items-center gap-3" {...oppositeAnimation}>
               <div className="flex flex-col gap-3">
                 {rightCards.map(({ company, techs }) => (
                   <Card key={company.companyId} company={company} companyTechs={techs} />
@@ -82,26 +86,20 @@ const AnimationCard = () => {
               </div>
             </motion.div>
           )}
-        </div>
+        </>
       ) : (
-        <div className="w-[calc(100%-30px)] sm:w-1/2 flex justify-center items-center gap-3 h-[580px] overflow-hidden">
-          {mobileCards.length > 0 && (
-            <motion.div
-              className="flex flex-col justify-center items-center gap-3"
-              animate={{ y: ["100%", "-100%"] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="flex flex-col gap-6">
-                {mobileCards.map(({ company, techs }) => (
-                  <Card key={company.companyId} company={company} companyTechs={techs} />
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </div>
+        mobileCards.length > 0 && (
+          <motion.div className="flex flex-col justify-center items-center gap-3" {...animationProps}>
+            <div className="flex flex-col gap-6">
+              {mobileCards.map(({ company, techs }) => (
+                <Card key={company.companyId} company={company} companyTechs={techs} />
+              ))}
+            </div>
+          </motion.div>
+        )
       )}
-    </>
+    </div>
   );
 };
 
-export default AnimationCard;
+export default React.memo(AnimationCard);
