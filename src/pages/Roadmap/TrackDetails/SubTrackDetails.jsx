@@ -64,9 +64,9 @@ export default function SubTrackDetails() {
               {categoryName}
             </Link>
             /
-            <Link to={`/roadmap/${categoryId}/${subCategoryId}`} className="text-[12px] md:text-[15px]">
+            <span className="text-[12px] md:text-[15px] text-blue-600 font-medium">
               {subCategory.subCategoryName}
-            </Link>
+            </span>
           </div>
           <div className="w-2xs md:w-lg h-px bg-black  mx-auto"></div>
         </section>
